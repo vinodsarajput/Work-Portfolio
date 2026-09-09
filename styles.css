@@ -9,7 +9,7 @@
    ============================================================ */
 
 /* =========================================================
-   VINOD SINGH RAJPUT — PREMIUM APPLE-INSPIRED PORTFOLIO
+   VINOD SINGH — PREMIUM APPLE-INSPIRED PORTFOLIO
    ========================================================= */
 
 :root{
@@ -165,7 +165,7 @@ button{font:inherit}
 @keyframes loadline{to{width:100%}}
 
 /* shared */
-.section-pad{width:min(var(--max),92%);margin:auto}
+.section-pad{width:100%;max-width:none;margin:0;padding-left:4%;padding-right:4%;}
 .section-number{font-size:10px;letter-spacing:3px;color:#5f6b79;font-weight:700;margin-bottom:20px}
 .section-heading h2,.philosophy h2,.contact h2{
   font-family:"Manrope",sans-serif;font-size:clamp(2.5rem,5vw,5.2rem);
@@ -842,4 +842,141 @@ body{
   .ring-b{width:325px !important;height:325px !important}
 
   .floating-card{min-width:94px !important;padding:7px 8px !important}
+}
+
+
+/* ============================================================
+   FINAL SINGLE-PAGE OVERRIDES
+   कोई top navbar नहीं; पूरा portfolio/results उसी page पर है।
+   ============================================================ */
+.navbar, .mobile-menu{display:none !important;}
+body{min-height:100vh;background:
+  radial-gradient(circle at 72% -5%,rgba(22,140,245,.12),transparent 28%),
+  radial-gradient(circle at 15% 55%,rgba(22,140,245,.04),transparent 24%),
+  var(--bg) !important;color:var(--white) !important;}
+main{display:block;}
+.results-block{position:relative;}
+@media(max-width:700px){
+  .section-pad{width:100% !important;max-width:none !important;margin:0 !important;padding-left:16px !important;padding-right:16px !important;}
+  .portfolio,.stats,.bring,.signature,.cta-strip{padding-top:48px !important;padding-bottom:48px !important;}
+  .results-block .stats-grid,.results-block .bring-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat{grid-column:auto !important;min-height:145px !important;padding:16px !important;}
+  .results-block .stat-wide{grid-column:span 2 !important;}
+}
+
+/* ============================================================
+   DESKTOP HERO SPACING FIX
+   ऊपर का खाली space कम करके hero content को viewport के ऊपरी हिस्से में लाता है।
+   Mobile rules को नहीं छेड़ा गया है।
+   ============================================================ */
+@media (min-width: 1051px){
+  .hero{
+    align-items:start !important;
+    padding-top:72px !important;
+  }
+  .hero-copy{
+    transform:translateY(8px);
+  }
+  .hero-visual{
+    transform:translateY(-92px);
+  }
+}
+
+
+/* ============================================================
+   FINAL POLISH — PHOTO FADE + MOBILE SECTION SPACING
+   केवल requested visual fixes; बाकी design/data unchanged.
+   ============================================================ */
+.hero-photo{
+  -webkit-mask-image:linear-gradient(to bottom,
+    #000 0%,
+    #000 82%,
+    rgba(0,0,0,.78) 89%,
+    rgba(0,0,0,.36) 96%,
+    transparent 100%);
+  mask-image:linear-gradient(to bottom,
+    #000 0%,
+    #000 82%,
+    rgba(0,0,0,.78) 89%,
+    rgba(0,0,0,.36) 96%,
+    transparent 100%);
+}
+
+@media (max-width:700px){
+  /* Mobile में sections के बीच अनावश्यक खाली height कम */
+  .about,
+  .services,
+  .portfolio,
+  .stats,
+  .contact{
+    padding-top:42px !important;
+    padding-bottom:42px !important;
+  }
+
+  .about-grid{
+    gap:30px !important;
+    margin-top:30px !important;
+  }
+  .section-heading{margin-bottom:0 !important;}
+  .section-heading + .about-grid{margin-top:28px !important;}
+  .service-grid{margin-top:28px !important;}
+  .portfolio{padding-bottom:42px !important;}
+  .stats{padding-top:34px !important;padding-bottom:42px !important;}
+  .stats-grid{margin-top:0 !important;}
+  .contact{padding-top:48px !important;padding-bottom:48px !important;}
+
+  /* Photo का bottom hard-cut हटाकर soft transparent fade */
+  .hero-visual{overflow:visible !important;}
+  .portrait-frame{overflow:visible !important;}
+  .hero-photo{
+    -webkit-mask-image:linear-gradient(to bottom,
+      #000 0%,
+      #000 78%,
+      rgba(0,0,0,.88) 85%,
+      rgba(0,0,0,.52) 92%,
+      transparent 100%);
+    mask-image:linear-gradient(to bottom,
+      #000 0%,
+      #000 78%,
+      rgba(0,0,0,.88) 85%,
+      rgba(0,0,0,.52) 92%,
+      transparent 100%);
+  }
+}
+
+@media (max-width:390px){
+  .about,
+  .services,
+  .portfolio,
+  .stats,
+  .contact{
+    padding-top:36px !important;
+    padding-bottom:36px !important;
+  }
+  .contact{padding-top:42px !important;padding-bottom:42px !important;}
+}
+
+/* ============================================================
+   FINAL DESKTOP HERO LEVEL — PHOTO + SHORTER HOME HEIGHT
+   बाकी website में कोई बदलाव नहीं।
+   ============================================================ */
+@media (min-width:1051px){
+  .hero{
+    min-height:88vh !important;
+    height:88vh !important;
+    padding-top:58px !important;
+  }
+  .hero-copy{
+    transform:translateY(0) !important;
+  }
+  .hero-visual{
+    height:650px !important;
+    transform:translateY(-128px) !important;
+  }
+  .portrait-frame{
+    height:650px !important;
+  }
+  .hero-photo{
+    max-height:650px !important;
+  }
 }
