@@ -1,11 +1,11 @@
 // ============================================================
 // EDIT GUIDE — JAVASCRIPT
-// इस file में animations, navbar, mobile menu और portfolio
+// इस file में animations, single-page interactions और portfolio
 // carousel का behavior है। सामान्य text/content बदलने के लिए
 // HTML files edit करें।
 // ============================================================
 
-// VINOD SINGH RAJPUT — navigation + portfolio carousel interactions
+// VINOD SINGH — navigation + portfolio carousel interactions
 
 document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
@@ -50,41 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     link.classList.toggle("active", active);
   });
 
-
-  // =====================================================
-  // TOP NAVBAR — current page active indicator
-  // =====================================================
-  const currentPage = window.location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll(".desktop-nav a[data-page]").forEach(link => {
-    const page = link.dataset.page;
-    const active =
-      (page === "home" && (currentPage === "index.html" || currentPage === "")) ||
-      (page === "portfolio" && currentPage === "portfolio.html") ||
-      (page === "results" && currentPage === "results.html");
-    link.classList.toggle("active", active);
-  });
-
-  // =====================================================
-  // MOBILE NAVBAR — hamburger menu
-  // =====================================================
-  const menuToggle = document.querySelector(".menu-toggle");
-  const mobileMenu = document.querySelector(".mobile-menu");
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
-    });
-
-    mobileMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-      });
-    });
-  }
 
   // Reveal on scroll.
   const revealItems = document.querySelectorAll(".reveal");
