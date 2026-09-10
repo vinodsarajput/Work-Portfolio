@@ -1644,3 +1644,211 @@ body{padding-bottom:0 !important;}
 .showcase-grid{overflow:visible !important;}
 .showcase-card{max-width:100%;min-width:0;}
 body{overflow-x:hidden;}
+
+/* ============================================================
+   DESKTOP PORTFOLIO — REEL + TWO WORK CARDS
+   Windows/desktop पर Reel left और 2 selected work cards right में।
+   Mobile पर वही content एक clean single-column flow में रहेगा।
+   ============================================================ */
+@media (min-width: 1051px){
+  .portfolio-showcase-grid{
+    grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr) !important;
+    grid-template-rows:auto auto;
+    align-items:start;
+    gap:18px;
+  }
+  .portfolio-video-showcase{
+    grid-column:1;
+    grid-row:1 / span 2;
+  }
+  .portfolio-design-showcase{
+    grid-column:2;
+    grid-row:1;
+  }
+  .portfolio-square-showcase{
+    grid-column:2;
+    grid-row:2;
+  }
+  .portfolio-showcase-grid .showcase-card{height:auto;}
+  .portfolio-showcase-grid .portfolio-video-showcase .carousel-shell{aspect-ratio:9/16;}
+  .portfolio-showcase-grid .portfolio-design-showcase .carousel-shell{aspect-ratio:16/9;}
+  .portfolio-showcase-grid .portfolio-square-showcase .carousel-shell{aspect-ratio:1/1;}
+}
+
+/* ============================================================
+   PREMIUM REVIEW SLIDER — ONE CARD AT A TIME
+   Auto-slide + arrows + dots. Desktop/mobile पर एक ही card shape।
+   ============================================================ */
+.reviews-carousel{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+}
+.reviews-track{
+  display:flex;
+  width:100%;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+  touch-action:pan-y;
+}
+.review-slide{
+  flex:0 0 100%;
+  min-width:100%;
+  padding:2px;
+  box-sizing:border-box;
+}
+.review-slide .review-card{
+  min-height:230px;
+  padding:30px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(0,132,255,.10),transparent 34%),
+    linear-gradient(145deg,rgba(14,21,30,.96),rgba(5,8,12,.98));
+  border:1px solid rgba(139,162,187,.17);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 24px 80px rgba(0,0,0,.18);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.review-top{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.review-index{font-size:8px;letter-spacing:2px;color:#66778a;}
+.reviews-carousel .review-stars{margin:0;color:#0b8cff;letter-spacing:3px;font-size:11px;}
+.reviews-carousel .review-card p{max-width:900px;font-size:clamp(1.15rem,2vw,1.7rem);line-height:1.42;color:#edf3f9;margin:42px 0 34px;}
+.reviews-carousel .review-author strong{font-size:13px;}
+.reviews-carousel .review-author small{font-size:9px;letter-spacing:1.6px;}
+.review-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;height:40px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(4,8,13,.72);
+  color:#fff;
+  display:grid;place-items:center;
+  cursor:pointer;z-index:4;
+  backdrop-filter:blur(14px);
+  transition:.25s ease;
+  font-size:26px;line-height:1;
+}
+.review-arrow:hover{background:rgba(12,35,58,.92);border-color:rgba(0,153,255,.45);}
+.review-arrow.prev{left:16px;}
+.review-arrow.next{right:16px;}
+.review-dots{
+  position:absolute;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:6px;
+  z-index:4;
+}
+.review-dot{
+  width:6px;height:6px;padding:0;border:0;border-radius:50%;
+  background:rgba(255,255,255,.32);cursor:pointer;transition:.25s ease;
+}
+.review-dot.active{width:18px;border-radius:6px;background:#0b8cff;box-shadow:0 0 12px rgba(11,140,255,.45);}
+
+@media(max-width:1050px){
+  .portfolio-showcase-grid{grid-template-columns:1fr !important;}
+  .portfolio-video-showcase,.portfolio-design-showcase,.portfolio-square-showcase{grid-column:auto;grid-row:auto;}
+}
+@media(max-width:700px){
+  .reviews-carousel{border-radius:16px;}
+  .review-slide{padding:1px;}
+  .review-slide .review-card{min-height:210px;padding:22px;border-radius:16px;}
+  .reviews-carousel .review-card p{font-size:14px;line-height:1.5;margin:30px 0 28px;max-width:none;}
+  .review-arrow{width:32px;height:32px;font-size:21px;}
+  .review-arrow.prev{left:10px}.review-arrow.next{right:10px}
+  .review-dots{bottom:11px}
+}
+
+
+/* ============================================================
+   FINAL USER-SPECIFIC CONSOLIDATION
+   1) Mobile portfolio: design cards first, video card last.
+   2) Video stays manual-only; sound control remains inside video.
+   3) Desktop: Reel left, 16:9 work + 1:1 work stacked right.
+   4) Home has no carousel/scroll/sound controls.
+   5) No global cursor light: only hovered element glow.
+   6) Mobile/desktop blank-space and overflow safety.
+   ============================================================ */
+
+/* Global overflow safety */
+html, body { width:100%; max-width:100%; overflow-x:hidden !important; }
+
+/* Video controls are local to the video card only. */
+.hero .carousel-arrow,
+.hero .carousel-dots,
+.hero .video-sound-toggle,
+.hero .scroll-cue { display:none !important; }
+.video-card .carousel-shell{ position:relative !important; overflow:hidden !important; }
+.video-card .video-sound-toggle{ display:grid !important; }
+
+/* Desktop portfolio composition */
+@media (min-width:1051px){
+  .portfolio-showcase-grid{
+    grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr) !important;
+    grid-template-rows:auto auto !important;
+    gap:18px !important;
+    align-items:start !important;
+  }
+  .portfolio-video-showcase{grid-column:1 !important;grid-row:1 / span 2 !important;}
+  .portfolio-design-showcase{grid-column:2 !important;grid-row:1 !important;}
+  .portfolio-square-showcase{grid-column:2 !important;grid-row:2 !important;}
+}
+
+/* Mobile: designs/social first, reels last. */
+@media (max-width:700px){
+  .portfolio-showcase-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:22px !important;
+  }
+  .portfolio-design-showcase{order:1 !important;}
+  .portfolio-square-showcase{order:2 !important;}
+  .portfolio-video-showcase{order:3 !important;}
+
+  /* Equal-width, stable media frames */
+  .portfolio-design-showcase .carousel-shell{aspect-ratio:16/9 !important;}
+  .portfolio-square-showcase .carousel-shell{aspect-ratio:1/1 !important;}
+  .portfolio-video-showcase .carousel-shell{aspect-ratio:9/16 !important;}
+  .showcase-card{width:100% !important;max-width:100% !important;min-width:0 !important;}
+
+  /* Compact mobile section rhythm */
+  .portfolio{padding-top:42px !important;padding-bottom:42px !important;}
+  .reviews{padding-top:42px !important;padding-bottom:42px !important;}
+  .contact{padding-top:42px !important;padding-bottom:34px !important;}
+  .site-footer{padding-bottom:24px !important;}
+}
+
+/* Result cards: equal shape everywhere. */
+@media (min-width:1051px){
+  .results-block .stats-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:12px !important;}
+  .results-block .stat,.results-block .stat-wide{
+    grid-column:auto !important;width:100% !important;height:210px !important;min-height:0 !important;aspect-ratio:auto !important;
+  }
+}
+@media (max-width:700px){
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat,.results-block .stat-wide{
+    grid-column:auto !important;width:100% !important;height:auto !important;min-height:0 !important;aspect-ratio:1.38 / 1 !important;
+  }
+}
+
+/* Marquee spacing from hero */
+.marquee-section{margin-top:18px !important;}
+@media(max-width:700px){.marquee-section{margin-top:14px !important;}}
+
+/* Prevent artificial page-height leftovers. */
+body, .contact, .site-footer { min-height:0 !important; }
+@media(max-width:700px){
+  body{padding-bottom:0 !important;}
+  .contact-card{margin-bottom:0 !important;}
+}
+
+/* Element-local Apple-style glow only; never draw a global cursor light. */
+@media (hover:hover) and (pointer:fine){
+  .btn,.service-card,.showcase-card,.stat,.text-link,.footer-links a,.footer-socials a,.social-link,.carousel-arrow,.carousel-dot,.video-sound-toggle{
+    --hover-x:50%;--hover-y:50%;
+  }
+}
