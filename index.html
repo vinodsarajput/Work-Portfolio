@@ -158,18 +158,18 @@ a{color:inherit;text-decoration:none;}
     <p>Designs, campaigns and short-form content created for brands and businesses.</p>
   </div>
 
-  <div class="showcase-grid">
+  <div class="showcase-grid portfolio-showcase-grid">
     <!-- VIDEO / 9:16 — Manual controls + sound -->
-    <article class="showcase-card video-card reveal" data-auto="false" data-carousel="video-1">
-      <div class="showcase-head"><div><h3>Reels & Ads</h3></div></div>
+    <article class="showcase-card video-card portfolio-video-showcase reveal" data-auto="false" data-carousel="video-1">
+      <div class="showcase-head"><div><h3>Reels &amp; Short Form</h3></div></div>
       <div class="carousel-shell portrait-video">
         <div class="carousel-track">
           <!-- VIDEO 01 -->
-          <div class="carousel-slide" data-title="Short Form Reel" data-client="Political Campaign">
+          <div class="carousel-slide" data-title="Reel" data-client="Client Project">
             <video class="portfolio-video" src="assets/portfolio/video-01.mp4" muted playsinline loop preload="metadata" aria-label="Short-form reel"></video>
           </div>
           <!-- VIDEO 02 -->
-          <div class="carousel-slide" data-title="Short Form Reel" data-client="Political Campaign">
+          <div class="carousel-slide" data-title="Campaign Reel" data-client="Ume Kalsum">
             <video class="portfolio-video" src="assets/portfolio/video-02.mp4" muted playsinline loop preload="metadata" aria-label="Campaign video"></video>
           </div>
         </div>
@@ -185,7 +185,7 @@ a{color:inherit;text-decoration:none;}
     </article>
 
     <!-- GRAPHIC DESIGN / 16:9 -->
-    <article class="showcase-card design-card reveal reveal-delay" data-carousel="design-1" data-interval="2000">
+    <article class="showcase-card design-card portfolio-design-showcase reveal reveal-delay" data-carousel="design-1" data-interval="2000">
       <div class="showcase-head"><div><h3>Graphic Design</h3></div></div>
       <div class="carousel-shell landscape-design">
         <div class="carousel-track">
@@ -198,11 +198,11 @@ a{color:inherit;text-decoration:none;}
             <img class="portfolio-design-image" src="assets/portfolio/design-02-teacher-exam-2026.png" alt="Exam update post">
           </div>
           <!-- 16:9 WORK 03 -->
-          <div class="carousel-slide" data-title="REET Info Post" data-client="1G Teacher Guruji">
+          <div class="carousel-slide" data-title="Information Post" data-client="1G Teacher Guruji">
             <img class="portfolio-design-image" src="assets/portfolio/design-03-reet-grade-3.png" alt="REET information post">
           </div>
           <!-- 16:9 WORK 04 -->
-          <div class="carousel-slide" data-title="Cut Off Post" data-client="1G Teacher Guruji">
+          <div class="carousel-slide" data-title="Ad / Info Post" data-client="1G Teacher Guruji">
             <img class="portfolio-design-image" src="assets/portfolio/design-04-grade-4-cutoff.png" alt="Grade 4 cut off post">
           </div>
         </div>
@@ -217,24 +217,24 @@ a{color:inherit;text-decoration:none;}
     </article>
 
     <!-- SOCIAL MEDIA / 1:1 -->
-    <article class="showcase-card square-card reveal" data-auto="false" data-carousel="design-square">
+    <article class="showcase-card square-card portfolio-square-showcase reveal" data-auto="false" data-carousel="design-square">
       <div class="showcase-head"><div><h3>Social Media Posts</h3></div></div>
       <div class="carousel-shell square-design">
         <div class="carousel-track">
           <!-- SQUARE WORK 01 -->
-          <div class="carousel-slide" data-title="Festival Offer Post" data-client="RV Manushi Study">
+          <div class="carousel-slide" data-title="Offer Post" data-client="RV Manushi Study">
             <img class="portfolio-design-image" src="assets/portfolio/course-post-janmashtami.png" alt="Festival offer post">
           </div>
           <!-- SQUARE WORK 02 -->
-          <div class="carousel-slide" data-title="National Doctors Day Post" data-client="Sufiya College">
+          <div class="carousel-slide" data-title="Social Media Post" data-client="Sufiya College">
             <img class="portfolio-design-image" src="assets/portfolio/design-05-sufiya-doctors-day.png" alt="National Doctors Day post">
           </div>
           <!-- SQUARE WORK 03 -->
-          <div class="carousel-slide" data-title="International Yoga Day Post" data-client="Mediminds">
+          <div class="carousel-slide" data-title="Social Media Post" data-client="Mediminds">
             <img class="portfolio-design-image" src="assets/portfolio/design-06-mediminds-yoga-day.png" alt="International Yoga Day post">
           </div>
           <!-- SQUARE WORK 04 -->
-          <div class="carousel-slide" data-title="Evening Tuition Post" data-client="Mediminds">
+          <div class="carousel-slide" data-title="Ad Post" data-client="Mediminds">
             <img class="portfolio-design-image" src="assets/portfolio/design-07-mediminds-tuition.png" alt="Evening Tuition post">
           </div>
         </div>
@@ -268,44 +268,61 @@ a{color:inherit;text-decoration:none;}
     <span>CLIENT REVIEWS</span>
     <h2>Good work should leave a <span>good impression.</span></h2>
   </div>
-  <div class="reviews-grid">
-    <!-- Sample reviews: बाद में इन्हें अपने real client reviews से replace करें। -->
-    <article class="review-card reveal">
-      <div class="review-stars">★★★★★</div>
-      <p>“Clean, creative and professional work with a strong understanding of the brief.”</p>
-      <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
-    </article>
-    <article class="review-card reveal reveal-delay">
-      <div class="review-stars">★★★★★</div>
-      <p>“The content looked polished, clear and ready to publish across our social channels.”</p>
-      <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
-    </article>
-    <article class="review-card reveal">
-      <div class="review-stars">★★★★★</div>
-      <p>“Great attention to detail and a practical approach to creative work.”</p>
-      <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
-    </article>
+
+  <!-- =====================================================
+       REVIEWS — ONE PREMIUM SLIDING CARD
+       नया review जोड़ने के लिए .review-slide को copy करें।
+       review text, client name और brand नीचे बदलें।
+       ===================================================== -->
+  <div class="reviews-carousel reveal" data-review-carousel data-interval="4200">
+    <div class="reviews-track">
+      <article class="review-slide">
+        <div class="review-card">
+          <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">01 / 03</span></div>
+          <p>“Clean, creative and professional work with a strong understanding of the brief.”</p>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
+        </div>
+      </article>
+      <article class="review-slide">
+        <div class="review-card">
+          <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">02 / 03</span></div>
+          <p>“The content looked polished, clear and ready to publish across our social channels.”</p>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
+        </div>
+      </article>
+      <article class="review-slide">
+        <div class="review-card">
+          <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">03 / 03</span></div>
+          <p>“Great attention to detail and a practical approach to creative work.”</p>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
+        </div>
+      </article>
+    </div>
+    <button class="review-arrow prev" type="button" aria-label="Previous review">‹</button>
+    <button class="review-arrow next" type="button" aria-label="Next review">›</button>
+    <div class="review-dots" aria-label="Review slides"></div>
   </div>
 </section>
 
 <section class="contact section-pad" id="contact">
   <!-- =====================================================
        FINAL CONTACT
-       Email: vinodsarajput@gmail.com
+       Main CTA = WhatsApp.
        Resume: assets/vs cv.pdf (अपनी PDF इसी नाम से रखें)
+       Email secondary रखा गया है।
        ===================================================== -->
   <div class="contact-card reveal">
     <span class="contact-kicker">LET’S CONNECT</span>
-    <h2>Let’s create something<br/><span>worth noticing.</span></h2>
+    <h2>Let’s connect.<br/><span>Let’s create.</span></h2>
     <p>Have a project, brand or idea in mind? Let’s build something clear, useful and memorable.</p>
     <div class="contact-actions">
-      <a class="btn btn-primary large" href="mailto:vinodsarajput@gmail.com">Email Me <span>↗</span></a>
+      <a class="btn btn-primary large" href="https://wa.me/918949594215?text=Hello%20Vinod%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer">WhatsApp <span>↗</span></a>
       <a class="btn btn-ghost large" href="assets/vs cv.pdf" target="_blank" rel="noopener">View Resume <span>↗</span></a>
     </div>
     <div class="contact-socials">
       <a class="contact-social" href="https://www.instagram.com/vs_visuals9/" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a class="contact-social" href="https://www.facebook.com/vsvisuals9" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a class="contact-social" href="mailto:vinodsarajput@gmail.com">Email</a>
+      <a class="contact-social" href="mailto:vinodsarajput@gmail.com">Email</a><a class="contact-social" href="https://wa.me/918949594215" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </div>
 </section>
@@ -327,7 +344,7 @@ a{color:inherit;text-decoration:none;}
     <div class="footer-socials">
       <a class="social-link" href="https://www.instagram.com/vs_visuals9/" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a class="social-link" href="https://www.facebook.com/vsvisuals9" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a class="social-link" href="assets/vs cv.pdf" target="_blank" rel="noopener">Resume ↗</a>
+      <a class="social-link" href="https://wa.me/918949594215" target="_blank" rel="noopener noreferrer">WhatsApp</a><a class="social-link" href="assets/vs cv.pdf" target="_blank" rel="noopener">Resume ↗</a>
     </div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> Vinod Singh. All rights reserved.</span>
