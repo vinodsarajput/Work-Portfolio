@@ -39,18 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Mark current page in the top navbar.
-  const path = window.location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll(".desktop-nav a[data-page]").forEach(link => {
-    const page = link.dataset.page;
-    const active =
-      (page === "home" && (path === "index.html" || path === "")) ||
-      (page === "portfolio" && path === "portfolio.html") ||
-      (page === "results" && path === "results.html");
-    link.classList.toggle("active", active);
-  });
-
-
   // Reveal on scroll.
   const revealItems = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver((entries, obs) => {
@@ -75,7 +63,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = carousel.querySelector(".carousel-arrow.next");
     const dotsWrap = carousel.querySelector(".carousel-dots");
     const intervalMs = Number(carousel.dataset.interval) || 2000;
+    const autoPlay = carousel.dataset.auto !== "false";
     if (!track || slides.length === 0) return;
+
+    // Video sound control: default muted, user can explicitly toggle sound.
+    const soundToggle = carousel.querySelector(".video-sound-toggle");
+    const isVideoCarousel = carousel.querySelector("video") !== null;
+    let soundOn = false;
+
+    const updateSoundUI = () => {
+      if (!soundToggle) return;
+      soundToggle.textContent = soundOn ? "🔊" : "🔇";
+      soundToggle.setAttribute("aria-label", soundOn ? "Turn sound off" : "Turn sound on");
+      soundToggle.setAttribute("aria-pressed", String(soundOn));
+    };
+
+    soundToggle?.addEventListener("click", async () => {
+      soundOn = !soundOn;
+      const activeVideo = slides[index]?.querySelector("video");
+      if (activeVideo) {
+        activeVideo.muted = !soundOn;
+        if (soundOn) {
+          try { await activeVideo.play(); } catch (e) {}
+        }
+      }
+      updateSoundUI();
+    });
+
+    // एक ही slide हो तो अनावश्यक arrows/dots छिपाएँ।
+    if (slides.length <= 1) {
+      prev?.setAttribute("hidden", "true");
+      next?.setAttribute("hidden", "true");
+    }
 
     let index = 0;
     let timer = null;
@@ -101,15 +120,27 @@ document.addEventListener("DOMContentLoaded", () => {
         dot.classList.toggle("active", i === index);
       });
 
-      // Active slide का title और description नीचे automatically update होगा।
+      // Active slide का title/description और video playback sync रखें।
+      slides.forEach((slide, i) => {
+        const media = slide.querySelector("video");
+        if (!media) return;
+        if (i === index) {
+          media.muted = !soundOn;
+          media.play().catch(() => {});
+        } else {
+          media.pause();
+          try { media.currentTime = 0; } catch (e) {}
+        }
+      });
       const activeSlide = slides[index];
       const title = activeSlide?.dataset.title;
       const description = activeSlide?.dataset.description;
-      const titleBox = carousel.querySelector(".project-title");
-      const descriptionBox = carousel.querySelector(".project-description");
+      const client = activeSlide?.dataset.client;
+      const titleBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-title");
+      const descriptionBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-description");
 
       if (titleBox && title) titleBox.textContent = title;
-      if (descriptionBox && description) descriptionBox.textContent = description;
+      if (descriptionBox) descriptionBox.textContent = client || description || "";
     };
 
     const step = direction => {
@@ -122,13 +153,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const start = () => {
       clearInterval(timer);
+      if (!autoPlay) return;
       timer = setInterval(() => {
         if (!paused) step(1);
       }, intervalMs);
     };
     const restart = () => {
       clearInterval(timer);
-      start();
+      if (autoPlay) start();
     };
 
     carousel.addEventListener("mouseenter", () => paused = true);
@@ -152,6 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, {passive:true});
 
+    updateSoundUI();
+    render();
     start();
   });
 
@@ -199,3 +233,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }, {passive:true});
   }
 });
+
+// Element-local glow: light follows the element under the pointer, not the cursor globally.
+(() => {
+  if (!window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  const targets = document.querySelectorAll(".btn, .service-card, .showcase-card, .stat, .text-link, .footer-nav a, .social-link, .carousel-arrow, .carousel-dot, .video-sound-toggle");
+  targets.forEach(el => {
+    el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--hover-x", `${e.clientX - r.left}px`);
+      el.style.setProperty("--hover-y", `${e.clientY - r.top}px`);
+    }, {passive:true});
+  });
+})();
