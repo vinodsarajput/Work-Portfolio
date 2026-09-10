@@ -228,11 +228,6 @@ button{font:inherit}
   font-size:9px;letter-spacing:1.4px;text-transform:uppercase
 }
 .hero-note .line{width:32px;height:1px;background:rgba(109,187,255,.3)}
-.scroll-cue{
-  position:absolute;left:4%;bottom:31px;z-index:6;
-  color:#485463;font-size:8px;letter-spacing:2.5px;display:flex;align-items:center;gap:10px;
-}
-.scroll-cue span{width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue)}
 
 .hero-visual{height:750px;position:relative;display:grid;place-items:end center}
 .portrait-frame{position:relative;width:min(620px,100%);height:715px;display:flex;align-items:flex-end;justify-content:center}
@@ -317,7 +312,8 @@ footer{
 }
 .footer-brand{display:flex;align-items:center;gap:12px}
 .footer-brand b{display:block;font-size:12px;letter-spacing:1.8px}.footer-brand small{display:block;color:#596371;font-size:8px;letter-spacing:2px;margin-top:4px}
-.footer-links{display:flex;gap:24px;font-size:11px;color:#798390}.footer-links a:hover{color:#fff}
+.footer-links{display:flex;align-items:center;gap:24px;font-size:11px;color:#798390}.footer-links a:hover{color:#fff}
+.footer-links .social-link{color:#aab5c2;position:relative;padding-left:0;font-weight:600}.footer-links .social-link:hover{color:var(--blue-soft)}
 footer>p{grid-column:1/-1;color:#454e5a;font-size:9px;letter-spacing:1px}
 
 /* footer dock */
@@ -418,13 +414,12 @@ footer>p{grid-column:1/-1;color:#454e5a;font-size:9px;letter-spacing:1px}
 
 /* responsive */
 @media(max-width:1050px){
-  .hero{grid-template-columns:1fr}.hero-copy{text-align:center;padding-top:55px}.hero-intro{max-width:580px;margin-top:22px;color:var(--muted);font-size:var(--font-desc);line-height:1.72}.hero-actions{justify-content:center}.hero-note,.scroll-cue{justify-content:center}.hero-visual{height:650px;margin-top:10px}.portrait-frame{height:650px}.hero-photo{width:540px}.card-ai{left:8%}.card-digital{right:7%}
+  .hero{grid-template-columns:1fr}.hero-copy{text-align:center;padding-top:55px}.hero-intro{max-width:580px;margin-top:22px;color:var(--muted);font-size:var(--font-desc);line-height:1.72}.hero-actions{justify-content:center}.hero-note{justify-content:center}.hero-visual{height:650px;margin-top:10px}.portrait-frame{height:650px}.hero-photo{width:540px}.card-ai{left:8%}.card-digital{right:7%}
   .service-grid{grid-template-columns:repeat(2,1fr)}.service-card.wide{grid-column:span 2}.stats-grid{grid-template-columns:repeat(2,1fr)}.stat-wide{grid-column:span 2}.bring-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:700px){
   .hero{padding-top:92px}.hero h1{font-family:"Manrope",sans-serif;font-size:clamp(3.15rem,6vw,5.9rem);line-height:.9;letter-spacing:-.065em;margin:14px 0 22px;font-weight:800}.hero-role{font-size:var(--font-sub);line-height:1.65;color:#e6ebf1;font-weight:600}.hero-intro{max-width:580px;margin-top:22px;color:var(--muted);font-size:var(--font-desc);line-height:1.72}.role-break{display:none}
   .hero-visual{height:510px}.portrait-frame{height:510px}.hero-photo{width:425px}.ring-a{width:380px;height:380px;bottom:62px}.ring-b{width:485px;height:485px}.floating-card{min-width:120px;padding:10px}.floating-card b{font-size:8px}.floating-card small{font-size:8px}.label-top,.label-bottom{display:none}.card-ai{top:15%;left:0}.card-digital{right:0;bottom:16%}
-  .scroll-cue{display:none}
   .about,.services,.philosophy{padding-top:95px;padding-bottom:95px}.about-grid{grid-template-columns:1fr;gap:50px;margin-top:45px}.about-copy .lead{font-size:19px}
   .split{display:block}.section-side{margin-top:20px}.service-grid{grid-template-columns:1fr}.service-card,.service-card.wide{grid-column:auto;min-height:280px}.service-icon{margin-bottom:55px}
   .philosophy-box{padding:38px 25px}.philosophy h2{font-size:clamp(2.5rem,13vw,4rem)}.contact{padding-bottom:90px}.contact-inner{padding-top:55px}
@@ -441,7 +436,7 @@ footer>p{grid-column:1/-1;color:#454e5a;font-size:9px;letter-spacing:1px}
 }
 
 /* ---------------------------------------------------------
-   Portfolio: exactly four blank, asset-ready carousels
+   Portfolio: live showcase carousels
    --------------------------------------------------------- */
 .portfolio-note{
   display:flex;gap:9px;align-items:center;margin-bottom:24px;
@@ -472,24 +467,10 @@ footer>p{grid-column:1/-1;color:#454e5a;font-size:9px;letter-spacing:1px}
   transition:transform .65s cubic-bezier(.22,1,.36,1)
 }
 .carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center}
-.empty-media{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:
-    radial-gradient(circle at 50% 42%,rgba(22,140,245,.07),transparent 30%),
-    linear-gradient(135deg,#090c11,#050608);
-}
-.empty-media:before{
-  content:"";width:34%;aspect-ratio:1;border:1px dashed rgba(109,187,255,.22);
-  border-radius:16px;box-shadow:0 0 50px rgba(22,140,245,.05)
-}
-.empty-media span{
-  margin-top:18px;font-family:"Manrope";font-size:var(--font-sub);
-  font-weight:800;letter-spacing:-.025em;color:#b3bdca
-}
-.empty-media small{margin-top:6px;font-size:8px;letter-spacing:2px;color:#566271}
 .carousel-slide img,.carousel-slide video{
   display:block;width:100%;height:100%;object-fit:cover
 }
+.portfolio-video{object-fit:cover;object-position:center center;background:#05070a;}
 .carousel-arrow{
   position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
   border:1px solid rgba(255,255,255,.14);background:rgba(5,7,10,.72);color:#fff;
@@ -773,7 +754,6 @@ body{
 
   .label-top,
   .label-bottom,
-  .scroll-cue,
   .hero-note{
     display:none !important;
   }
@@ -956,27 +936,711 @@ main{display:block;}
   .contact{padding-top:42px !important;padding-bottom:42px !important;}
 }
 
+
 /* ============================================================
-   FINAL DESKTOP HERO LEVEL — PHOTO + SHORTER HOME HEIGHT
-   बाकी website में कोई बदलाव नहीं।
+   PORTFOLIO UI POLISH — APPROVED CORRECTIONS
+   केवल requested responsive/UI improvements.
    ============================================================ */
+
+/* Keep the website truly edge-to-edge; sections already use their own inner spacing. */
+html, body { width:100%; max-width:100%; }
+
+/* Better service-card internal layout: no text/Explore overlap. */
+.service-card{
+  display:flex !important;
+  flex-direction:column !important;
+}
+.service-card .service-icon{
+  margin-bottom:0 !important;
+}
+.service-card h3{
+  min-height:2.45em;
+  display:flex;
+  align-items:flex-end;
+  margin-top:auto !important;
+}
+.service-card p{
+  margin-top:12px !important;
+  min-height:3.4em;
+}
+.service-card a{
+  position:static !important;
+  margin-top:14px !important;
+  align-self:flex-start;
+}
+
+/* Results: compact and intentional hierarchy. */
+.results-block .stats-grid{margin-top:0 !important;}
+.results-block .stat{
+  min-height:175px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.results-block .stat p{margin-top:10px;}
+.results-block .stat small{margin-top:9px;}
+
+/* Portfolio per-slide caption lives inside each card. */
+.showcase-card .project-info{padding:16px 2px 2px;}
+.showcase-card .project-title{font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.18;}
+.showcase-card .project-description{font-size:13px;line-height:1.55;margin-top:6px;max-width:100%;}
+
+/* Softer photo fade, especially on the final lower edge. */
+.hero-photo{
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 84%,rgba(0,0,0,.58) 92%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.92) 84%,rgba(0,0,0,.58) 92%,transparent 100%);
+}
+
+/* Desktop: bring photo closer to the same visual level as the name block and reduce Hero height. */
 @media (min-width:1051px){
   .hero{
-    min-height:88vh !important;
-    height:88vh !important;
-    padding-top:58px !important;
+    min-height:86vh !important;
+    height:86vh !important;
+    padding-top:52px !important;
   }
-  .hero-copy{
-    transform:translateY(0) !important;
-  }
+  .hero-copy{transform:translateY(4px) !important;}
   .hero-visual{
-    height:650px !important;
-    transform:translateY(-128px) !important;
+    height:620px !important;
+    transform:translateY(-148px) !important;
   }
-  .portrait-frame{
-    height:650px !important;
+  .portrait-frame{height:620px !important;}
+  .hero-photo{max-height:620px !important;}
+}
+
+@media (max-width:700px){
+  /* Mobile full-width, no outer blank rails. */
+  body{overflow-x:hidden !important;}
+  .section-pad{width:100% !important;margin:0 !important;}
+
+  /* Compact About rhythm */
+  .about{padding-top:46px !important;padding-bottom:44px !important;}
+  .about-grid{gap:30px !important;margin-top:26px !important;}
+  .about-copy .lead{font-size:18px !important;line-height:1.5 !important;}
+  .about-copy>p:not(.lead){font-size:13px !important;line-height:1.72 !important;margin-top:18px !important;}
+  .text-link{margin-top:22px !important;}
+
+  /* Services remain 2 columns and become internally robust. */
+  .services{padding-top:46px !important;padding-bottom:42px !important;}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;margin-top:28px !important;}
+  .service-card,.service-card.wide{min-height:228px !important;padding:14px !important;border-radius:12px !important;}
+  .service-card .service-no{right:13px;top:13px;font-size:8px;}
+  .service-card .service-icon{font-size:18px !important;margin:0 0 16px !important;}
+  .service-card h3{font-size:16px !important;line-height:1.08 !important;min-height:3.25em !important;}
+  .service-card p{font-size:10px !important;line-height:1.45 !important;min-height:4.25em !important;margin-top:9px !important;}
+  .service-card a{font-size:9px !important;margin-top:9px !important;}
+  .service-card.wide{grid-column:span 2 !important;min-height:210px !important;}
+
+  /* Portfolio: one clean showcase at a time on mobile. */
+  .portfolio{padding-top:46px !important;padding-bottom:44px !important;}
+  .portfolio-note{margin-bottom:18px !important;white-space:nowrap;overflow:hidden;}
+  .showcase-grid{grid-template-columns:1fr !important;gap:24px !important;}
+  .showcase-card{padding:12px !important;border-radius:18px !important;}
+  .showcase-card .project-info{padding:14px 2px 2px !important;}
+  .showcase-card .project-title{font-size:17px !important;}
+  .showcase-card .project-description{font-size:11px !important;line-height:1.55 !important;margin-top:5px !important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .portrait-design{aspect-ratio:4/5 !important;}
+  .portrait-video{aspect-ratio:9/16 !important;}
+
+  /* Results: keep 2-column composition, reduce dead space before Contact. */
+  .stats{padding-top:38px !important;padding-bottom:34px !important;}
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat{min-height:150px !important;padding:14px !important;justify-content:flex-start !important;}
+  .results-block .stat strong{font-size:clamp(2.9rem,13vw,4rem) !important;}
+  .results-block .stat p{font-size:12px !important;margin-top:9px !important;line-height:1.18 !important;}
+  .results-block .stat small{font-size:7px !important;margin-top:auto !important;letter-spacing:1.7px !important;}
+  .results-block .stat-wide{grid-column:span 2 !important;min-height:132px !important;}
+
+  /* Contact follows Results without a large empty region. */
+  .contact{padding-top:34px !important;padding-bottom:46px !important;}
+  .contact-inner{padding-top:46px !important;}
+
+  /* Social links wrap cleanly in the footer. */
+  .footer-links{gap:14px !important;row-gap:10px !important;}
+}
+
+@media (max-width:390px){
+  .service-card,.service-card.wide{min-height:218px !important;}
+  .service-card h3{font-size:15px !important;}
+  .service-card p{font-size:9.5px !important;}
+  .results-block .stat{min-height:145px !important;}
+}
+
+
+/* ============================================================
+   FINAL RESPONSIVE POLISH — USER APPROVED
+   केवल अंतिम requested UI corrections.
+   ============================================================ */
+.results-heading{margin-bottom:26px;}
+.results-heading h2{font-family:"Manrope",sans-serif;font-size:clamp(2.4rem,4.4vw,4.8rem);line-height:.98;letter-spacing:-.065em;font-weight:800;}
+.results-heading h2 span{color:var(--blue);}
+
+/* Role separators must stay visible on every breakpoint. */
+.hero-role i{display:inline-block;font-style:normal;color:var(--blue);margin:0 .22em;white-space:nowrap;}
+
+/* Desktop Hero: keep the face/head fully visible while bringing it closer to the name block. */
+@media (min-width:1051px){
+  .hero{min-height:82vh !important;height:82vh !important;padding-top:42px !important;padding-bottom:0 !important;}
+  .hero-visual{height:590px !important;transform:translateY(-78px) !important;}
+  .portrait-frame{height:590px !important;}
+  .hero-photo{max-height:590px !important;}
+}
+
+@media (max-width:700px){
+  .hero-role{white-space:normal !important;}
+  .hero-role i{margin:0 .16em !important;}
+  .results-heading{margin-bottom:18px !important;}
+  .results-heading h2{font-size:clamp(2rem,10vw,3rem) !important;}
+  .results-heading .section-number{margin-bottom:12px !important;}
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat,
+  .results-block .stat-wide{grid-column:auto !important;min-height:154px !important;aspect-ratio:1.45 / 1 !important;}
+  .results-block .stat strong{font-size:clamp(2.6rem,11vw,3.7rem) !important;}
+}
+
+@media (max-width:390px){
+  .results-block .stat,
+  .results-block .stat-wide{min-height:138px !important;aspect-ratio:1.38 / 1 !important;}
+  .results-block .stat p{font-size:11px !important;}
+}
+
+/* User requested: hide Portfolio/Results meta labels without changing content/layout. */
+.portfolio-note{display:none !important;}
+.results-heading .section-number{display:none !important;}
+
+/* ============================================================
+   RESULTS GRID — 5 EQUAL CARDS
+   Desktop: all 5 cards in one row with identical size.
+   Mobile: every card keeps the same ratio, including card 05.
+   ============================================================ */
+@media (min-width:1051px){
+  .results-block .stats-grid{
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:12px !important;
+    grid-auto-rows:220px !important;
   }
-  .hero-photo{
-    max-height:650px !important;
+  .results-block .stat,
+  .results-block .stat-wide{
+    grid-column:auto !important;
+    min-height:0 !important;
+    height:220px !important;
+    aspect-ratio:auto !important;
+    padding:22px !important;
   }
 }
+
+@media (max-width:1050px) and (min-width:701px){
+  .results-block .stats-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+  }
+  .results-block .stat,
+  .results-block .stat-wide{
+    grid-column:auto !important;
+  }
+}
+
+@media (max-width:700px){
+  .results-block .stats-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  .results-block .stat,
+  .results-block .stat-wide{
+    grid-column:auto !important;
+    min-height:0 !important;
+    height:auto !important;
+    aspect-ratio:1.38 / 1 !important;
+    padding:14px !important;
+  }
+}
+
+/* Apple-style glass ticker polish — केवल moving strip */
+.marquee-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008)),
+    rgba(7,10,15,.58);
+  border-top:1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    inset 0 -1px 0 rgba(0,0,0,.55),
+    0 8px 30px rgba(0,0,0,.12);
+  backdrop-filter:blur(18px) saturate(125%);
+  -webkit-backdrop-filter:blur(18px) saturate(125%);
+}
+
+.marquee-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 0%,rgba(42,145,255,.08),transparent 42%);
+  z-index:-1;
+}
+
+.marquee-section::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(4,7,11,.98) 0%,
+    rgba(4,7,11,0) 9%,
+    rgba(4,7,11,0) 91%,
+    rgba(4,7,11,.98) 100%);
+  z-index:2;
+}
+
+.marquee{
+  position:relative;
+  z-index:1;
+  gap:34px;
+  padding:20px 0;
+  color:rgba(171,184,200,.76);
+  font-size:9.5px;
+  letter-spacing:2.9px;
+  font-weight:700;
+  text-transform:uppercase;
+  text-shadow:0 1px 12px rgba(255,255,255,.03);
+}
+
+.marquee span{white-space:nowrap}
+.marquee i{
+  display:inline-grid;
+  place-items:center;
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  font-style:normal;
+  color:#4eb0ff;
+  font-size:11px;
+  border:1px solid rgba(78,176,255,.16);
+  border-radius:50%;
+  background:rgba(78,176,255,.035);
+  box-shadow:0 0 18px rgba(78,176,255,.07);
+}
+
+@media (max-width:700px){
+  .marquee-section{min-height:54px}
+  .marquee{gap:24px;padding:17px 0;font-size:8.5px;letter-spacing:2.3px}
+  .marquee i{width:16px;height:16px;flex-basis:16px;font-size:10px}
+}
+
+/* Responsive role lines + equal results cards */
+.role-mobile-break{display:none;}
+@media (min-width:1051px){
+  .results-block .stats-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:12px !important;}
+  .results-block .stat,.results-block .stat-wide{grid-column:auto !important;min-height:180px !important;aspect-ratio:1.55 / 1 !important;}
+}
+@media (max-width:1050px){
+  .role-mobile-break{display:block;}
+}
+@media (max-width:700px){
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat,.results-block .stat-wide{grid-column:auto !important;min-height:0 !important;aspect-ratio:1.32 / 1 !important;}
+}
+
+.footer-brand{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;}
+.footer-brand strong{font-size:12px;letter-spacing:2px;color:#f6f8fb;}
+.footer-brand span{font-size:8px;letter-spacing:2.4px;color:#6f7d8d;}
+@media(max-width:700px){.footer-brand{justify-content:center;gap:8px;flex-wrap:wrap}.footer-brand strong{font-size:10px}.footer-brand span{font-size:7px}}
+
+/* Uploaded portfolio creatives — preserve the full 16:9 artwork inside the showcase frame. */
+.portfolio-design-image{
+  width:100%;height:100%;display:block;object-fit:contain;object-position:center;border-radius:inherit;background:#05080d;
+}
+
+/* ============================================================
+   FINAL VERIFIED RESPONSIVE POLISH
+   ============================================================ */
+
+html,body{width:100%;max-width:100%;overflow-x:hidden;}
+img,video{max-width:100%;}
+
+/* Desktop hero: keep text and photo visually aligned, with the full head visible. */
+@media (min-width:1051px){
+  .hero{min-height:80vh !important;height:80vh !important;padding-top:28px !important;padding-bottom:0 !important;}
+  .hero-copy{transform:translateY(-3px);}
+  .hero-visual{height:575px !important;transform:translateY(-28px) !important;}
+  .portrait-frame{height:575px !important;}
+  .hero-photo{max-height:575px !important;object-position:center bottom !important;}
+}
+
+/* Mobile roles: exactly two controlled rows. */
+@media (max-width:700px){
+  .hero-role{display:flex !important;flex-direction:column !important;align-items:center !important;gap:2px !important;max-width:100% !important;white-space:nowrap !important;}
+  .hero-role .role-line{display:block !important;white-space:nowrap !important;}
+  .role-mobile-break{display:none !important;}
+
+  /* Natural hero height: no dead black area after the photo. */
+  .hero{min-height:auto !important;height:auto !important;padding-top:26px !important;padding-bottom:0 !important;}
+  .hero-visual{height:366px !important;margin-top:-18px !important;}
+  .portrait-frame{height:366px !important;}
+  .hero-photo{width:318px !important;max-height:363px !important;object-position:center bottom !important;}
+
+  /* Soft fade at the bottom of the portrait.
+     Fade ko portrait frame tak limit na rakhein — mobile viewport ki
+     poori width me continuous black gradient rahega. */
+  .hero{isolation:isolate !important;}
+  .hero::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:140px;
+    z-index:3;
+    pointer-events:none;
+    background:linear-gradient(to bottom,rgba(5,8,13,0),rgba(5,8,13,.18) 22%,rgba(5,8,13,.70) 68%,#05080d 100%);
+  }
+  .portrait-frame::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:0;height:24%;
+    z-index:5;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(5,8,13,0),rgba(5,8,13,.18) 34%,rgba(5,8,13,.78) 82%,#05080d 100%);
+  }
+
+  /* Prevent marquee from causing page overflow. */
+  .marquee-section{width:100vw !important;max-width:100vw !important;overflow:hidden !important;}
+  .marquee{white-space:nowrap !important;}
+
+  /* Compact section rhythm. */
+  .about{padding-top:82px !important;padding-bottom:76px !important;}
+  .services{padding-bottom:78px !important;}
+  .portfolio{padding-bottom:78px !important;}
+  .stats{padding-bottom:28px !important;}
+  .contact{padding-top:30px !important;padding-bottom:34px !important;}
+
+  /* Service cards: stable internal flow, no Explore collisions. */
+  .service-card,.service-card.wide{min-height:218px !important;display:flex !important;flex-direction:column !important;align-items:flex-start !important;}
+  .service-icon{margin-bottom:22px !important;}
+  .service-card h3{min-height:48px !important;}
+  .service-card p{margin-top:10px !important;margin-bottom:34px !important;}
+  .service-card a{bottom:14px !important;left:14px !important;}
+
+  /* Portfolio: stable media sizing and readable dynamic metadata. */
+  .showcase-card{min-width:0 !important;}
+  .carousel-shell{max-width:100% !important;overflow:hidden !important;}
+  .project-info{padding:14px 3px 0 !important;}
+  .project-title{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;font-size:15px !important;}
+  .project-description{display:-webkit-box !important;-webkit-line-clamp:2 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;font-size:10.5px !important;line-height:1.5 !important;}
+
+  /* Results: all five cards same ratio; no fifth-card special width. */
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat,.results-block .stat-wide{grid-column:auto !important;height:auto !important;min-height:0 !important;aspect-ratio:1.34 / 1 !important;padding:14px !important;}
+
+  /* Professional footer. */
+  .site-footer{padding:28px 4% 32px !important;margin:0 !important;width:100% !important;border-top:1px solid var(--line) !important;}
+  .footer-main{display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .footer-brand{justify-content:center !important;margin:0 !important;}
+  .footer-links{justify-content:center !important;flex-wrap:wrap !important;gap:11px 16px !important;}
+  .footer-bottom{width:100%;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;color:#4f5a68;font-size:8px;letter-spacing:.8px;}
+}
+
+@media (min-width:701px){
+  .site-footer{width:100%;padding:30px 4% 38px;border-top:1px solid var(--line);}
+  .footer-main{display:flex;justify-content:space-between;align-items:center;gap:24px;}
+  .footer-bottom{display:flex;justify-content:space-between;gap:24px;margin-top:22px;color:#4f5a68;font-size:9px;letter-spacing:.8px;}
+}
+
+/* Element-local Apple-style hover glow. */
+.btn,.service-card,.showcase-card,.stat,.text-link,.footer-nav a,.social-link,.carousel-arrow,.carousel-dot,.video-sound-toggle{position:relative;overflow:hidden;}
+.btn::after,.service-card::after,.showcase-card::after,.stat::after,.text-link::after,.footer-nav a::after,.social-link::after,.carousel-arrow::after,.carousel-dot::after,.video-sound-toggle::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(120px circle at var(--glow-x,-120px) var(--glow-y,-120px),rgba(68,168,255,.16),transparent 68%);
+  opacity:0;transition:opacity .2s ease;
+}
+.btn:hover::after,.service-card:hover::after,.showcase-card:hover::after,.stat:hover::after,.text-link:hover::after,.footer-nav a:hover::after,.social-link:hover::after,.carousel-arrow:hover::after,.carousel-dot:hover::after,.video-sound-toggle:hover::after{opacity:1;}
+@media (hover:none),(pointer:coarse){
+  .btn::after,.service-card::after,.showcase-card::after,.stat::after,.text-link::after,.footer-nav a::after,.social-link::after,.carousel-arrow::after,.carousel-dot::after,.video-sound-toggle::after{display:none!important;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .marquee{animation:none !important;}
+  .hero-photo{animation:none !important;}
+  .reveal{transition:none !important;}
+}
+
+
+/* ============================================================
+   USER REQUEST — 16:9 DESIGN THUMBNAILS
+   Supplied Graphic Design thumbnails are native 16:9 artwork.
+   Keep the showcase frame at the same ratio and never crop them.
+   ============================================================ */
+.landscape-design{aspect-ratio:16/9 !important;}
+.landscape-design .carousel-slide img{object-fit:contain !important;object-position:center !important;background:#05080d !important;}
+
+/* Video showcase is manual-only; its arrows/dots remain active. */
+[data-carousel="video-1"] .carousel-shell{cursor:default;}
+
+@media (max-width:700px){
+  .landscape-design{width:100% !important;max-width:100% !important;aspect-ratio:16/9 !important;}
+  .landscape-design .carousel-slide img{width:100% !important;height:100% !important;object-fit:contain !important;}
+}
+/* 1:1 live social creative frame — preserve the supplied square artwork. */
+.square-design{aspect-ratio:1/1 !important;}
+.square-design .carousel-slide img{object-fit:contain !important;object-position:center !important;background:#05080d !important;}
+@media (max-width:700px){
+  .square-design{width:100% !important;max-width:100% !important;aspect-ratio:1/1 !important;}
+  .square-design .carousel-slide img{width:100% !important;height:100% !important;object-fit:contain !important;}
+}
+
+/* Video sound control — player के bottom-right corner में, major video platforms जैसा। */
+.video-sound-toggle{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  transform:none;
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  background:rgba(7,12,18,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  line-height:1;
+  cursor:pointer;
+  z-index:6;
+  box-shadow:0 8px 24px rgba(0,0,0,.24);
+  transition:transform .2s ease,background .2s ease,border-color .2s ease;
+}
+.video-sound-toggle:hover{transform:scale(1.05);background:rgba(12,20,30,.9);border-color:rgba(0,153,255,.45)}
+.video-sound-toggle[aria-pressed="true"]{border-color:rgba(0,153,255,.55);box-shadow:0 0 0 1px rgba(0,153,255,.1),0 0 24px rgba(0,153,255,.15)}
+@media(max-width:700px){
+  .video-sound-toggle{width:31px;height:31px;right:10px;bottom:10px;font-size:12px}
+}
+
+/* ============================================================
+   FINAL CONSOLIDATION — USER REQUESTED STATE
+   ============================================================ */
+
+/* Fixed bottom navigation was removed from the single-page HTML;
+   remove its reserved body space so the page never ends with a blank block. */
+body{padding-bottom:0 !important;}
+@media(max-width:700px){body{padding-bottom:0 !important;}}
+
+/* No scroll cue anywhere on the Home page. */
+
+
+/* Desktop Hero: show the entire head, keep it close to the name block,
+   and keep the first viewport compact. */
+@media (min-width:1051px){
+  .hero{
+    min-height:78vh !important;
+    height:78vh !important;
+    padding-top:28px !important;
+    padding-bottom:0 !important;
+  }
+  .hero-copy{transform:translateY(0) !important;}
+  .hero-visual{
+    height:560px !important;
+    transform:translateY(-12px) !important;
+  }
+  .portrait-frame{height:560px !important;}
+  .hero-photo{
+    max-height:560px !important;
+    object-position:center bottom !important;
+  }
+}
+
+/* Mobile: keep the two role lines clean and centered. */
+@media(max-width:700px){
+  .hero-role{display:flex !important;flex-direction:column !important;align-items:center !important;gap:2px !important;white-space:normal !important;}
+  .hero-role .role-line{display:block !important;white-space:nowrap !important;}
+  .hero-role i{display:inline-block !important;margin:0 .18em !important;}
+}
+
+/* Hide technical showcase labels such as 01 / VIDEO and 02 / DESIGN.
+   The actual portfolio titles stay visible. */
+.showcase-head > div > small{display:none !important;}
+
+/* Results: all five cards equal on desktop and equal-ratio on mobile. */
+@media (min-width:1051px){
+  .results-block .stats-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:12px !important;}
+  .results-block .stat,.results-block .stat-wide{grid-column:auto !important;width:100% !important;height:210px !important;min-height:0 !important;aspect-ratio:auto !important;padding:22px !important;}
+}
+@media (max-width:700px){
+  .results-block .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .results-block .stat,.results-block .stat-wide{grid-column:auto !important;width:100% !important;height:auto !important;min-height:0 !important;aspect-ratio:1.38 / 1 !important;padding:14px !important;}
+}
+
+/* Service cards: maintain the compact 2-column mobile composition and
+   prevent text/Explore collisions. */
+@media(max-width:700px){
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important;}
+  .service-card,.service-card.wide{grid-column:auto !important;min-height:218px !important;display:flex !important;flex-direction:column !important;}
+  .service-card.wide{grid-column:span 2 !important;}
+}
+
+/* 16:9 and 1:1 portfolio frames stay true to their supplied artwork ratios. */
+.landscape-design{aspect-ratio:16/9 !important;}
+.square-design{aspect-ratio:1/1 !important;}
+
+/* Video carousel is manual-only. */
+[data-carousel="video-1"]{--carousel-auto:none;}
+
+/* Contact/footer: no forced viewport height or artificial bottom gap. */
+.contact,.site-footer{min-height:0 !important;height:auto !important;}
+
+
+/* ============================================================
+   FINAL HOME SAFETY PASS
+   Home पर कोई carousel/sound control नहीं दिखना चाहिए.
+   Desktop photo का पूरा head visible रहे और text के साथ visually aligned हो.
+   ============================================================ */
+.hero .carousel-arrow,
+.hero .video-sound-toggle,
+.hero .carousel-dots{
+  display:none !important;
+}
+
+@media (min-width:1051px){
+  .hero{
+    min-height:78vh !important;
+    height:78vh !important;
+    overflow:hidden !important;
+  }
+  .hero-visual{
+    height:540px !important;
+    transform:translateY(-2px) !important;
+  }
+  .portrait-frame{
+    height:540px !important;
+  }
+  .hero-photo{
+    max-height:540px !important;
+    object-position:center bottom !important;
+  }
+}
+
+
+/* FINAL HOME CONTROL ISOLATION — video controls stay inside the video player only. */
+.video-card .carousel-shell{position:relative !important;overflow:hidden !important;}
+.video-card .carousel-arrow,.video-card .carousel-dots,.video-card .video-sound-toggle{position:absolute;}
+@media(max-width:700px){
+  .video-card .carousel-arrow{display:grid;}
+  .video-card .video-sound-toggle{display:grid;}
+}
+
+/* ============================================================
+   FINAL POLISH — SELECTED WORK / REVIEWS / CONTACT
+   ============================================================ */
+
+/* Portfolio: image is the hero, text stays intentionally short. */
+.portfolio-intro{max-width:760px;margin:0 auto 38px;text-align:left;}
+.portfolio-kicker,.reviews-heading>span,.contact-kicker{display:inline-block;font-size:9px;letter-spacing:2.8px;text-transform:uppercase;color:#7f92a8;margin-bottom:13px;}
+.portfolio-intro h2{margin:0;font-size:clamp(2.7rem,5vw,5.3rem);line-height:.96;letter-spacing:-.055em;}
+.portfolio-intro h2 span{color:#0b8cff;}
+.portfolio-intro p{margin:16px 0 0;color:#7c8998;font-size:14px;line-height:1.7;max-width:560px;}
+.showcase-head h3{font-size:16px !important;letter-spacing:-.02em !important;}
+.showcase-card .showcase-head{min-height:28px;}
+.showcase-card .aspect-badge{display:none !important;}
+.project-info{padding:15px 3px 0 !important;}
+.project-info .project-title{font-size:20px !important;line-height:1.1 !important;margin:0 0 6px !important;}
+.project-info .project-description{font-size:13px !important;color:#8b98a7 !important;margin:0 !important;line-height:1.45 !important;}
+.showcase-card .carousel-slide img.portfolio-design-image{display:block;width:100%;height:100%;object-fit:contain !important;object-position:center !important;}
+.showcase-card .carousel-slide{overflow:hidden;}
+.landscape-design{aspect-ratio:16 / 9 !important;}
+.square-design{aspect-ratio:1 / 1 !important;}
+.portfolio .showcase-grid{align-items:start;}
+
+/* Clean client review section */
+.reviews{position:relative;}
+.reviews-heading{max-width:820px;margin-bottom:28px;}
+.reviews-heading h2{margin:0;max-width:740px;font-size:clamp(2.5rem,4.8vw,4.8rem);line-height:.97;letter-spacing:-.055em;}
+.reviews-heading h2 span{color:#0b8cff;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.review-card{position:relative;overflow:hidden;min-height:210px;padding:24px;border:1px solid rgba(133,154,176,.16);border-radius:18px;background:linear-gradient(145deg,rgba(15,22,31,.92),rgba(7,11,16,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;}
+.review-card:hover{transform:translateY(-5px);border-color:rgba(22,148,255,.34);box-shadow:0 18px 60px rgba(0,0,0,.28),0 0 34px rgba(0,136,255,.09);}
+.review-stars{font-size:11px;letter-spacing:3px;color:#0b8cff;margin-bottom:22px;}
+.review-card p{font-size:16px;line-height:1.55;color:#e7edf5;margin:0 0 24px;}
+.review-author{display:flex;flex-direction:column;gap:4px;margin-top:auto;}
+.review-author strong{font-size:12px;color:#fff;}
+.review-author small{font-size:9px;color:#728093;letter-spacing:1.3px;text-transform:uppercase;}
+
+/* Final contact: minimal black/blue editorial treatment. */
+.contact{padding-top:96px !important;padding-bottom:76px !important;}
+.contact-card{position:relative;overflow:hidden;border:1px solid rgba(137,158,181,.18);border-radius:28px;padding:clamp(28px,5vw,68px);background:radial-gradient(circle at 85% 20%,rgba(0,111,255,.14),transparent 34%),linear-gradient(145deg,#06080c,#030406 72%);}
+.contact-card::after{content:"";position:absolute;inset:auto -12% -46% 35%;height:55%;background:radial-gradient(circle,rgba(0,132,255,.12),transparent 62%);pointer-events:none;}
+.contact-card h2{position:relative;z-index:1;margin:0;font-size:clamp(3.1rem,7vw,7.2rem);line-height:.9;letter-spacing:-.065em;}
+.contact-card h2 span{color:#0b8cff;}
+.contact-card>p{position:relative;z-index:1;max-width:670px;margin:24px 0 0;color:#7f8b9b;font-size:15px;line-height:1.7;}
+.contact-actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;}
+.contact-socials{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:9px;margin-top:28px;}
+.contact-social{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border:1px solid rgba(132,151,170,.18);border-radius:999px;color:#b6c2d0;font-size:11px;transition:.25s ease;}
+.contact-social:hover{color:#fff;border-color:rgba(15,144,255,.42);background:rgba(7,17,28,.56);}
+
+/* Premium footer */
+.site-footer{border-top:1px solid rgba(126,146,168,.15) !important;background:#030507 !important;}
+.footer-shell{max-width:1250px;margin:0 auto;padding:38px 4% 30px;}
+.footer-brand{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;}
+.footer-brand strong{font-size:12px;letter-spacing:2.4px;color:#f5f8fc;}
+.footer-brand span{font-size:8px;letter-spacing:2.2px;color:#68778a;}
+.footer-email{display:inline-block;color:#8f9cac;font-size:12px;margin:0 0 22px;}
+.footer-links,.footer-socials{display:flex;flex-wrap:wrap;gap:10px 18px;}
+.footer-links a,.footer-socials a{font-size:10px;color:#8b97a7;transition:.25s ease;}
+.footer-links a:hover,.footer-socials a:hover{color:#fff;}
+.footer-socials{margin-top:12px;}
+.footer-bottom{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:28px;padding-top:16px;border-top:1px solid rgba(126,146,168,.1);font-size:8px;letter-spacing:.8px;color:#505c6c;}
+
+/* Home: no carousel controls or sound control can ever appear here. */
+.hero .carousel-arrow,.hero .carousel-dots,.hero .video-sound-toggle,.scroll-cue{display:none !important;}
+
+/* Hover glow belongs to the hovered element, never to the global cursor. */
+@media (hover:hover) and (pointer:fine){
+  .btn,.service-card,.showcase-card,.stat,.text-link,.social-link,.carousel-arrow,.carousel-dot,.video-sound-toggle{position:relative;overflow:hidden;}
+  .btn::after,.service-card::after,.showcase-card::after,.stat::after,.text-link::after,.social-link::after,.carousel-arrow::after,.carousel-dot::after,.video-sound-toggle::after{content:"";position:absolute;inset:var(--hover-y,50%) auto auto var(--hover-x,50%);width:135px;height:135px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(24,145,255,.22),rgba(24,145,255,0) 68%);opacity:0;pointer-events:none;transition:opacity .22s ease;}
+  .btn:hover::after,.service-card:hover::after,.showcase-card:hover::after,.stat:hover::after,.text-link:hover::after,.social-link:hover::after,.carousel-arrow:hover::after,.carousel-dot:hover::after,.video-sound-toggle:hover::after{opacity:1;}
+}
+
+@media (max-width:1050px){
+  .reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:700px){
+  .portfolio-intro{margin-bottom:28px;}
+  .portfolio-intro h2{font-size:clamp(2.5rem,12vw,3.6rem);}
+  .portfolio-intro p{font-size:11px;line-height:1.55;max-width:320px;}
+  .showcase-card .showcase-head{padding-bottom:4px;}
+  .showcase-head h3{font-size:14px !important;}
+  .project-info .project-title{font-size:17px !important;}
+  .project-info .project-description{font-size:11px !important;}
+  .reviews-grid{grid-template-columns:1fr;gap:9px;}
+  .review-card{min-height:175px;padding:20px;border-radius:15px;}
+  .review-card p{font-size:13px;line-height:1.5;margin-bottom:18px;}
+  .reviews-heading h2{font-size:clamp(2.3rem,11vw,3.5rem);}
+  .contact{padding-top:54px !important;padding-bottom:34px !important;}
+  .contact-card{padding:28px 20px;border-radius:20px;}
+  .contact-card h2{font-size:clamp(2.8rem,14vw,4.6rem);}
+  .contact-card>p{font-size:11px;line-height:1.65;margin-top:18px;}
+  .contact-actions{margin-top:22px;}
+  .contact-socials{margin-top:20px;}
+  .contact-social{font-size:9px;padding:8px 11px;}
+  .footer-shell{padding:26px 5% 24px;}
+  .footer-brand{justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .footer-email{display:block;text-align:center;width:100%;font-size:10px;margin-bottom:18px;}
+  .footer-links,.footer-socials{justify-content:center;gap:9px 14px;}
+  .footer-bottom{justify-content:center;text-align:center;flex-direction:column;gap:8px;margin-top:20px;}
+  .footer-bottom span{width:100%;}
+}
+
+/* Latest marquee spacing: keep the strip visually separated from the Hero photo. */
+.marquee-section{margin-top:14px !important;}
+@media(max-width:700px){.marquee-section{margin-top:10px !important;}}
+
+/* Keep all portfolio showcase cards aligned and prevent accidental horizontal overflow. */
+.showcase-grid{overflow:visible !important;}
+.showcase-card{max-width:100%;min-width:0;}
+body{overflow-x:hidden;}
