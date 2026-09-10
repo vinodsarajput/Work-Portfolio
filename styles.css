@@ -1852,3 +1852,61 @@ body, .contact, .site-footer { min-height:0 !important; }
     --hover-x:50%;--hover-y:50%;
   }
 }
+
+
+/* ============================================================
+   SERVICES — 5 EQUAL CARDS IN ONE ROW
+   सभी service descriptions हटा दिए गए हैं।
+   Desktop पर 5 cards एक ही row में रहेंगे।
+   Mobile पर भी एक horizontal row रहेगा; swipe करके cards देख सकते हैं।
+   ============================================================ */
+.service-grid{
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:12px !important;
+  margin-top:42px !important;
+}
+.service-card,
+.service-card.wide{
+  grid-column:auto !important;
+  min-width:0 !important;
+  min-height:210px !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+.service-card h3{
+  margin-top:auto !important;
+  margin-bottom:46px !important;
+}
+.service-card a{
+  bottom:20px !important;
+}
+.service-card p{display:none !important;}
+
+@media (max-width: 900px){
+  .service-grid{
+    display:flex !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    grid-template-columns:none !important;
+    gap:10px !important;
+    padding-bottom:8px !important;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .service-grid::-webkit-scrollbar{display:none;}
+  .service-card,
+  .service-card.wide{
+    flex:0 0 220px !important;
+    width:220px !important;
+    min-height:205px !important;
+    scroll-snap-align:start;
+  }
+}
+
+@media (max-width: 420px){
+  .service-card,
+  .service-card.wide{
+    flex-basis:204px !important;
+    width:204px !important;
+  }
+}
