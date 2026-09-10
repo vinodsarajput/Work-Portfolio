@@ -220,18 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     counters.forEach(counter => countObserver.observe(counter));
   }
-
-  // Subtle pointer glow for desktop.
-  const hero = document.querySelector(".hero");
-  const orb = document.querySelector(".orb-one");
-  if (hero && orb && window.matchMedia("(pointer:fine)").matches) {
-    hero.addEventListener("pointermove", e => {
-      const r = hero.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      orb.style.transform = `translate(${x * 24}px, ${y * 16}px)`;
-    }, {passive:true});
-  }
 });
 
 // Element-local glow: light follows the element under the pointer, not the cursor globally.
@@ -246,3 +234,68 @@ document.addEventListener("DOMContentLoaded", () => {
     }, {passive:true});
   });
 })();
+
+// ============================================================
+// REVIEWS SLIDER
+// एक समय में एक ही review card दिखता है। Auto-slide + arrows + dots + swipe।
+// ============================================================
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-review-carousel]").forEach(carousel => {
+    const track = carousel.querySelector(".reviews-track");
+    const slides = Array.from(carousel.querySelectorAll(".review-slide"));
+    const prev = carousel.querySelector(".review-arrow.prev");
+    const next = carousel.querySelector(".review-arrow.next");
+    const dotsWrap = carousel.querySelector(".review-dots");
+    const intervalMs = Number(carousel.dataset.interval) || 4200;
+    if (!track || !slides.length) return;
+
+    let index = 0;
+    let timer = null;
+    let paused = false;
+    let startX = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "review-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Go to review ${i + 1}`);
+      dot.addEventListener("click", () => { index = i; render(); restart(); });
+      dotsWrap?.appendChild(dot);
+    });
+
+    const render = () => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dotsWrap?.querySelectorAll(".review-dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+    };
+
+    const step = direction => {
+      index = (index + direction + slides.length) % slides.length;
+      render();
+    };
+
+    const start = () => {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (!paused) step(1);
+      }, intervalMs);
+    };
+    const restart = () => { clearInterval(timer); start(); };
+
+    prev?.addEventListener("click", () => { step(-1); restart(); });
+    next?.addEventListener("click", () => { step(1); restart(); });
+    carousel.addEventListener("mouseenter", () => { paused = true; });
+    carousel.addEventListener("mouseleave", () => { paused = false; });
+    carousel.addEventListener("touchstart", e => { startX = e.changedTouches[0].clientX; paused = true; }, {passive:true});
+    carousel.addEventListener("touchend", e => {
+      const delta = e.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) > 35) step(delta < 0 ? 1 : -1);
+      paused = false;
+      restart();
+    }, {passive:true});
+
+    render();
+    start();
+  });
+});
