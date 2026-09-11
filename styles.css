@@ -1918,3 +1918,42 @@ body, .contact, .site-footer { min-height:0 !important; }
   .portfolio-showcase-grid .project-info{min-height:0;}
   .portfolio-showcase-grid .showcase-head h3{font-size:16px !important;}
 }
+/* ============================================================
+   MOBILE PORTFOLIO ORDER
+   Square → Thumbnails → 4:5 → Reels → Cover Pages
+   ============================================================ */
+
+@media (max-width:700px){
+
+  .portfolio-showcase-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:24px !important;
+  }
+
+  /* 1. Square Post */
+  .portfolio-square-showcase{
+    order:1 !important;
+  }
+
+  /* 2. YouTube Thumbnails */
+  .portfolio-design-showcase{
+    order:2 !important;
+  }
+
+  /* 3. 4:5 Vertical */
+  .portfolio-portrait-showcase{
+    order:3 !important;
+  }
+
+  /* 4. Reels */
+  .portfolio-video-showcase{
+    order:4 !important;
+  }
+
+  /* 5. Cover Pages */
+  .portfolio-ebook-showcase{
+    order:5 !important;
+  }
+
+}
