@@ -1852,3 +1852,69 @@ body, .contact, .site-footer { min-height:0 !important; }
     --hover-x:50%;--hover-y:50%;
   }
 }
+
+/* ============================================================
+   PORTFOLIO CARD SYSTEM — 5 FORMAT-LED SHOWCASES
+   Hierarchy: reels first, then design formats.
+   ============================================================ */
+.portfolio-showcase-grid{
+  align-items:start;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+}
+.portfolio-showcase-grid .showcase-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.portfolio-showcase-grid .showcase-head h3{
+  letter-spacing:-.03em;
+}
+.portfolio-showcase-grid .carousel-shell{
+  width:100%;
+  flex:none;
+}
+.portfolio-showcase-grid .portrait-video{
+  aspect-ratio:9/16 !important;
+}
+.portfolio-showcase-grid .landscape-design{
+  aspect-ratio:16/9 !important;
+}
+.portfolio-showcase-grid .square-design{
+  aspect-ratio:1/1 !important;
+}
+.portfolio-showcase-grid .portrait-design{
+  aspect-ratio:4/5 !important;
+}
+.portfolio-showcase-grid .carousel-slide img,
+.portfolio-showcase-grid .carousel-slide video{
+  width:100%;height:100%;object-fit:contain;object-position:center;
+  background:#05080d;
+}
+.portfolio-showcase-grid .portrait-video .carousel-slide img,
+.portfolio-showcase-grid .portrait-video .carousel-slide video{
+  object-fit:cover;
+}
+.portfolio-showcase-grid .project-info{
+  min-height:82px;
+}
+.ebook-design .carousel-slide img{
+  object-fit:contain !important;
+}
+.portrait-card .carousel-slide img{
+  object-fit:contain !important;
+}
+@media (min-width:1051px){
+  .portfolio-video-showcase{
+    border-color:rgba(109,187,255,.20);
+    box-shadow:0 18px 55px rgba(0,0,0,.18);
+  }
+}
+@media (max-width:1050px){
+  .portfolio-showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+}
+@media (max-width:700px){
+  .portfolio-showcase-grid{grid-template-columns:1fr !important;gap:24px !important;}
+  .portfolio-showcase-grid .project-info{min-height:0;}
+  .portfolio-showcase-grid .showcase-head h3{font-size:16px !important;}
+}
