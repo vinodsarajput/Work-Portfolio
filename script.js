@@ -64,12 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const dotsWrap = carousel.querySelector(".carousel-dots");
     const intervalMs = Number(carousel.dataset.interval) || 2000;
     const autoPlay = carousel.dataset.auto !== "false";
+
     if (!track || slides.length === 0) return;
 
-    // Video sound control: default muted, user can explicitly toggle sound.
     const soundToggle = carousel.querySelector(".video-sound-toggle");
-    const isVideoCarousel = carousel.querySelector("video") !== null;
     let soundOn = false;
+    let index = 0;
+    let timer = null;
+    let paused = false;
+    let startX = 0;
 
     const updateSoundUI = () => {
       if (!soundToggle) return;
@@ -78,39 +81,59 @@ document.addEventListener("DOMContentLoaded", () => {
       soundToggle.setAttribute("aria-pressed", String(soundOn));
     };
 
+    const playVideo = video => {
+      if (!video) return;
+      video.muted = !soundOn;
+
+      const attemptPlay = () => {
+        video.muted = !soundOn;
+        const promise = video.play();
+        if (promise && typeof promise.catch === "function") promise.catch(() => {});
+      };
+
+      if (video.readyState < 2) {
+        video.load();
+        video.addEventListener("loadeddata", attemptPlay, {once:true});
+        video.addEventListener("canplay", attemptPlay, {once:true});
+      } else {
+        attemptPlay();
+      }
+    };
+
+    const updateVideos = () => {
+      slides.forEach((slide, i) => {
+        const video = slide.querySelector("video");
+        if (!video) return;
+        if (i === index) {
+          playVideo(video);
+        } else {
+          video.pause();
+          try { video.currentTime = 0; } catch (e) {}
+        }
+      });
+    };
+
     soundToggle?.addEventListener("click", async () => {
       soundOn = !soundOn;
       const activeVideo = slides[index]?.querySelector("video");
       if (activeVideo) {
         activeVideo.muted = !soundOn;
-        if (soundOn) {
-          try { await activeVideo.play(); } catch (e) {}
-        }
+        try { await activeVideo.play(); } catch (e) {}
       }
       updateSoundUI();
     });
 
-    // एक ही slide हो तो अनावश्यक arrows/dots छिपाएँ।
     if (slides.length <= 1) {
       prev?.setAttribute("hidden", "true");
       next?.setAttribute("hidden", "true");
     }
 
-    let index = 0;
-    let timer = null;
-    let paused = false;
-
-    // Dots.
     slides.forEach((_, i) => {
       const dot = document.createElement("button");
       dot.className = "carousel-dot" + (i === 0 ? " active" : "");
       dot.type = "button";
       dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-      dot.addEventListener("click", () => {
-        index = i;
-        render();
-        restart();
-      });
+      dot.addEventListener("click", () => { index = i; render(); restart(); });
       dotsWrap?.appendChild(dot);
     });
 
@@ -119,26 +142,14 @@ document.addEventListener("DOMContentLoaded", () => {
       dotsWrap?.querySelectorAll(".carousel-dot").forEach((dot, i) => {
         dot.classList.toggle("active", i === index);
       });
+      updateVideos();
 
-      // Active slide का title/description और video playback sync रखें।
-      slides.forEach((slide, i) => {
-        const media = slide.querySelector("video");
-        if (!media) return;
-        if (i === index) {
-          media.muted = !soundOn;
-          media.play().catch(() => {});
-        } else {
-          media.pause();
-          try { media.currentTime = 0; } catch (e) {}
-        }
-      });
       const activeSlide = slides[index];
       const title = activeSlide?.dataset.title;
       const description = activeSlide?.dataset.description;
       const client = activeSlide?.dataset.client;
       const titleBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-title");
       const descriptionBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-description");
-
       if (titleBox && title) titleBox.textContent = title;
       if (descriptionBox) descriptionBox.textContent = client || description || "";
     };
@@ -154,35 +165,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = () => {
       clearInterval(timer);
       if (!autoPlay) return;
-      timer = setInterval(() => {
-        if (!paused) step(1);
-      }, intervalMs);
+      timer = setInterval(() => { if (!paused) step(1); }, intervalMs);
     };
-    const restart = () => {
-      clearInterval(timer);
-      if (autoPlay) start();
-    };
+    const restart = () => { clearInterval(timer); if (autoPlay) start(); };
 
     carousel.addEventListener("mouseenter", () => paused = true);
     carousel.addEventListener("mouseleave", () => paused = false);
     carousel.addEventListener("focusin", () => paused = true);
     carousel.addEventListener("focusout", () => paused = false);
-    carousel.addEventListener("touchstart", () => paused = true, {passive:true});
-    carousel.addEventListener("touchend", () => {
+    carousel.addEventListener("touchstart", e => {
+      paused = true;
+      startX = e.changedTouches[0].clientX;
+    }, {passive:true});
+    carousel.addEventListener("touchend", e => {
+      const delta = e.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) > 35) step(delta < 0 ? 1 : -1);
       paused = false;
       restart();
     }, {passive:true});
 
-    // Optional manual swipe on touch screens.
-    let startX = 0;
-    carousel.addEventListener("touchstart", e => { startX = e.changedTouches[0].clientX; }, {passive:true});
-    carousel.addEventListener("touchend", e => {
-      const delta = e.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) > 35) {
-        step(delta < 0 ? 1 : -1);
-        restart();
-      }
-    }, {passive:true});
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) updateVideos();
+    });
 
     updateSoundUI();
     render();
