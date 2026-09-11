@@ -3,20 +3,20 @@
 VINOD SINGH — EDIT GUIDE
 ============================================================
 1. नाम बदलना हो:
-   HTML में "VINOD SINGH" खोजें。
+   HTML में "VINOD SINGH" खोजें।
 
-2. यह पूरी वेबसाइट single-page layout है; सभी sections इसी index.html में हैं。
+2. यह पूरी वेबसाइट single-page layout है; सभी sections इसी index.html में हैं।
 
 3. WhatsApp number/message बदलना हो:
-   "wa.me/918949594215" खोजें और number/message बदलें。
+   "wa.me/918949594215" खोजें और number/message बदलें।
 
 4. Hero photo:
-   assets/vinod.png आपकी main photo है。
+   assets/vinod.png आपकी main photo है।
 
 5. Portfolio assets:
    इसी index.html में .carousel-slide के अंदर
-   <img src="assets/portfolio/your-image.jpg"> लगाएँ。
-   Video के लिए <video src="..."></video> लगा सकते हैं。
+   <img src="assets/portfolio/your-image.jpg"> लगाएँ।
+   Video के लिए <video src="..."></video> लगा सकते हैं।
 
 6. Portfolio ratio:
    Video = 9:16
@@ -24,7 +24,7 @@ VINOD SINGH — EDIT GUIDE
    Social media posts = 1:1
 
 7. Results numbers:
-   इसी index.html में data-target बदलें。
+   इसी index.html में data-target बदलें।
 
 8. Font categories:
    Heading = --font-heading
@@ -46,7 +46,7 @@ VINOD SINGH — EDIT GUIDE
 <style id="critical-fallback">
 html,body{background:#050608;color:#f7f9fc;margin:0;padding:0;min-height:100%;}
 body{font-family:"DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#050608 0%,#070b10 55%,#050608 100%);} 
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#050608 0%,#070b10 55%,#050608 100%);}
 main,section,.page{background:transparent;color:inherit;}
 a{color:inherit;text-decoration:none;}
 </style>
@@ -69,14 +69,22 @@ a{color:inherit;text-decoration:none;}
 <div class="hero-grid"></div>
 <div class="hero-copy reveal">
 <div class="eyebrow"><span class="pulse"></span> AI • DIGITAL • CREATIVE</div>
+
 <h1>VINOD<br/><span>SINGH </span></h1>
 <div class="hero-role">
 <span class="role-line">AI Expert <i>·</i> Digital Marketer <i>·</i> Social Media Manager</span><br class="role-mobile-break"/>
 <span class="role-line">Graphic Designer <i>·</i> Video Editor</span>
 </div>
+
 <div class="hero-actions">
 <a class="btn btn-primary" href="#portfolio">View Portfolio <span>↗</span></a>
 <a class="btn btn-ghost" href="#contact">Let's Work <span>↗</span></a>
+</div>
+<div class="hero-note">
+<span>AVAILABLE FOR SELECTED PROJECTS</span>
+<span class="line"></span>
+<span>2026</span>
+</div>
 </div>
 <div class="hero-visual reveal reveal-delay">
 <div class="portrait-frame">
@@ -122,13 +130,12 @@ a{color:inherit;text-decoration:none;}
 </div>
 <p class="section-side">From the first idea to the final post, video or campaign — everything works together.</p>
 </div>
-<!-- सभी 5 Services: एक ही row में equal cards -->
 <div class="service-grid">
-<article class="service-card reveal"><span class="service-no">01</span><div class="service-icon">✦</div><h3>AI-Powered<br/>Creative Solutions</h3><a href="#portfolio">Explore <span>↗</span></a></[...]
-<article class="service-card reveal reveal-delay"><span class="service-no">02</span><div class="service-icon">↗</div><h3>Digital<br/>Marketing</h3><a href="#portfolio">Explore <span>↗</span><[...]
-<article class="service-card reveal"><span class="service-no">03</span><div class="service-icon">▦</div><h3>Graphic Design<br/>&amp; Branding</h3><a href="#portfolio">Explore <span>↗</span></[...]
-<article class="service-card reveal reveal-delay"><span class="service-no">04</span><div class="service-icon">◎</div><h3>Social Media<br/>Management</h3><a href="#portfolio">Explore <span>↗</span>[...]
-<article class="service-card reveal"><span class="service-no">05</span><div class="service-icon">▶</div><h3>Video Editing<br/>&amp; Motion Graphics</h3><a href="#portfolio">Explore <span>↗</span><[...]
+<article class="service-card reveal"><span class="service-no">01</span><div class="service-icon">✦</div><h3>AI-Powered<br/>Creative Solutions</h3><p>AI-assisted ideation, content creation and smarter creative workflows.</p><a href="#portfolio">Explore <span>↗</span></a></article>
+<article class="service-card reveal reveal-delay"><span class="service-no">02</span><div class="service-icon">↗</div><h3>Digital<br/>Marketing</h3><p>Creative campaigns and digital strategies designed around real business goals.</p><a href="#portfolio">Explore <span>↗</span></a></article>
+<article class="service-card reveal"><span class="service-no">03</span><div class="service-icon">▦</div><h3>Graphic Design<br/>&amp; Branding</h3><p>Social creatives, visual identities and branded communication systems.</p><a href="#portfolio">Explore <span>↗</span></a></article>
+<article class="service-card reveal reveal-delay"><span class="service-no">04</span><div class="service-icon">◎</div><h3>Social Media<br/>Management</h3><p>Consistent content, creative direction and platform-focused execution.</p><a href="#portfolio">Explore <span>↗</span></a></article>
+<article class="service-card wide reveal"><span class="service-no">05</span><div class="service-icon">▶</div><h3>Video Editing<br/>&amp; Motion Graphics</h3><p>Reels, short-form videos, promotional edits and motion-led social content that keeps attention.</p><a href="#portfolio">Explore <span>↗</span></a></article>
 </div>
 </section>
 <section class="portfolio section-pad" id="portfolio">
@@ -140,7 +147,7 @@ a{color:inherit;text-decoration:none;}
        3) src          = Image या Video asset path
 
        नया work add: किसी .carousel-slide को copy करें।
-       work remove: पूरा .carousel-slide block delete करें。
+       work remove: पूरा .carousel-slide block delete करें।
        ===================================================== -->
   <div class="portfolio-intro reveal">
     <span class="portfolio-kicker">SELECTED WORK</span>
@@ -155,44 +162,44 @@ a{color:inherit;text-decoration:none;}
       <div class="carousel-shell portrait-video">
         <div class="carousel-track">
           <!-- VIDEO 01 -->
-          <div class="carousel-slide" data-title="Campaign Reel" data-client="Nagaur Election">
+          <div class="carousel-slide" data-title="Reel" data-client="Client Project">
             <video class="portfolio-video" src="assets/portfolio/video-01.mp4" muted playsinline loop preload="metadata" aria-label="Short-form reel"></video>
           </div>
           <!-- VIDEO 02 -->
-          <div class="carousel-slide" data-title="Campaign Reel" data-client="Nagaur Election">
+          <div class="carousel-slide" data-title="Campaign Reel" data-client="Ume Kalsum">
             <video class="portfolio-video" src="assets/portfolio/video-02.mp4" muted playsinline loop preload="metadata" aria-label="Campaign video"></video>
           </div>
         </div>
         <button class="carousel-arrow prev" type="button" aria-label="Previous video">‹</button>
         <button class="carousel-arrow next" type="button" aria-label="Next video">›</button>
         <div class="carousel-dots" aria-label="Video slides"></div>
-        <button class="video-sound-toggle" type="button" aria-label="Turn sound on" aria-pressed="false"></button>
+        <button class="video-sound-toggle" type="button" aria-label="Turn sound on" aria-pressed="false">🔇</button>
       </div>
       <div class="project-info">
-        <h3 class="project-title">Short-Form Reel</h3>
+        <h3 class="project-title">Short-form Reel</h3>
         <p class="project-description">Client Project</p>
       </div>
     </article>
 
     <!-- GRAPHIC DESIGN / 16:9 -->
     <article class="showcase-card design-card portfolio-design-showcase reveal reveal-delay" data-carousel="design-1" data-interval="2000">
-      <div class="showcase-head"><div><h3>Youtube Thumbnails</h3></div></div>
+      <div class="showcase-head"><div><h3>Graphic Design</h3></div></div>
       <div class="carousel-shell landscape-design">
         <div class="carousel-track">
           <!-- 16:9 WORK 01 -->
-          <div class="carousel-slide" data-title="Podcast Thumbnail" data-client="Mediminds">
+          <div class="carousel-slide" data-title="Success Story Post" data-client="Mediminds">
             <img class="portfolio-design-image" src="assets/portfolio/design-01-mediminds-mbbs.png" alt="Success story post for Mediminds">
           </div>
           <!-- 16:9 WORK 02 -->
-          <div class="carousel-slide" data-title="Exam Update Thumbnail" data-client="Teacher Guruji">
+          <div class="carousel-slide" data-title="Exam Update Post" data-client="1G Teacher Guruji">
             <img class="portfolio-design-image" src="assets/portfolio/design-02-teacher-exam-2026.png" alt="Exam update post">
           </div>
           <!-- 16:9 WORK 03 -->
-          <div class="carousel-slide" data-title="Educational Thumbnail" data-client="Teacher Guruji">
+          <div class="carousel-slide" data-title="Information Post" data-client="1G Teacher Guruji">
             <img class="portfolio-design-image" src="assets/portfolio/design-03-reet-grade-3.png" alt="REET information post">
           </div>
           <!-- 16:9 WORK 04 -->
-          <div class="carousel-slide" data-title="Educational Thumbnail" data-client="Teacher Guruji">
+          <div class="carousel-slide" data-title="Ad / Info Post" data-client="1G Teacher Guruji">
             <img class="portfolio-design-image" src="assets/portfolio/design-04-grade-4-cutoff.png" alt="Grade 4 cut off post">
           </div>
         </div>
@@ -201,7 +208,7 @@ a{color:inherit;text-decoration:none;}
         <div class="carousel-dots" aria-label="Graphic design slides"></div>
       </div>
       <div class="project-info">
-        <h3 class="project-title">Podcast Thumbnail</h3>
+        <h3 class="project-title">Success Story Post</h3>
         <p class="project-description">Mediminds</p>
       </div>
     </article>
@@ -226,10 +233,6 @@ a{color:inherit;text-decoration:none;}
           <!-- SQUARE WORK 04 -->
           <div class="carousel-slide" data-title="Ad Post" data-client="Mediminds">
             <img class="portfolio-design-image" src="assets/portfolio/design-07-mediminds-tuition.png" alt="Evening Tuition post">
-          </div>
-           <!-- SQUARE WORK 05 -->
-          <div class="carousel-slide" data-title="Meta Ad Post" data-client="Mediminds">
-            <img class="portfolio-design-image" src="assets/portfolio/Meta Ad.jpg.jpeg" alt="ad">
           </div>
         </div>
         <button class="carousel-arrow prev" type="button" aria-label="Previous social post">‹</button>
@@ -265,8 +268,8 @@ a{color:inherit;text-decoration:none;}
 
   <!-- =====================================================
        REVIEWS — ONE PREMIUM SLIDING CARD
-       नया review जोड़ने के लिए .review-slide को copy करें。
-       review text, client name और brand नीचे बदलें。
+       नया review जोड़ने के लिए .review-slide को copy करें।
+       review text, client name और brand नीचे बदलें।
        ===================================================== -->
   <div class="reviews-carousel reveal" data-review-carousel data-interval="4200">
     <div class="reviews-track">
@@ -274,24 +277,24 @@ a{color:inherit;text-decoration:none;}
         <div class="review-card">
           <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">01 / 03</span></div>
           <p>“Clean, creative and professional work with a strong understanding of the brief.”</p>
-          <div class="review-author"><strong>Mr. Khalid Sifulla</strong><small>Mediminds Eduserves LLP</small></div>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
         </div>
       </article>
       <article class="review-slide">
         <div class="review-card">
           <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">02 / 03</span></div>
           <p>“The content looked polished, clear and ready to publish across our social channels.”</p>
-          <div class="review-author"><strong>Mr. Javed Hussain</strong><small>Sufiya College Nagaur</small></div>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
         </div>
       </article>
-       <article class="review-slide">
+      <article class="review-slide">
         <div class="review-card">
           <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-index">03 / 03</span></div>
-          <p>“The content looked polished, clear and ready to publish across our social channels.”</p>
-          <div class="review-author"><strong>Bintu Kumar Nagar</strong><small>RV MANUSHI STUDY</small></div>
+          <p>“Great attention to detail and a practical approach to creative work.”</p>
+          <div class="review-author"><strong>Client Review</strong><small>Brand / Business</small></div>
         </div>
       </article>
-       </div>
+    </div>
     <button class="review-arrow prev" type="button" aria-label="Previous review">‹</button>
     <button class="review-arrow next" type="button" aria-label="Next review">›</button>
     <div class="review-dots" aria-label="Review slides"></div>
@@ -303,13 +306,14 @@ a{color:inherit;text-decoration:none;}
        FINAL CONTACT
        Main CTA = WhatsApp.
        Resume: assets/vs cv.pdf (अपनी PDF इसी नाम से रखें)
-       Email secondary रखा गया है。
+       Email secondary रखा गया है।
        ===================================================== -->
   <div class="contact-card reveal">
+    <span class="contact-kicker">LET’S CONNECT</span>
     <h2>Let’s connect.<br/><span>Let’s create.</span></h2>
     <p>Have a project, brand or idea in mind? Let’s build something clear, useful and memorable.</p>
     <div class="contact-actions">
-      <a class="btn btn-primary large" href="https://wa.me/918949594215?text=Hello%20Vinod%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer">WhatsApp <spa[...]
+      <a class="btn btn-primary large" href="https://wa.me/918949594215?text=Hello%20Vinod%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer">WhatsApp <span>↗</span></a>
       <a class="btn btn-ghost large" href="assets/vs cv.pdf" target="_blank" rel="noopener">View Resume <span>↗</span></a>
     </div>
     <div class="contact-socials">
