@@ -1957,3 +1957,8 @@ body, .contact, .site-footer { min-height:0 !important; }
   }
 
 }
+
+.ebook-design .carousel-slide {
+  aspect-ratio: 7 / 11;
+}
+object-fit: cover;
