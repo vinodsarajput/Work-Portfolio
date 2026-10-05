@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
      Local element glow — desktop only
      ---------------------------------------------------------- */
   if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-    const targets = document.querySelectorAll(".btn, .service-card, .showcase-card, .stat, .text-link, .contact-social, .carousel-arrow, .carousel-dot, .review-arrow, .review-dot");
+    const targets = document.querySelectorAll(".btn, .service-row, .showcase-card, .stat, .text-link, .contact-social, .carousel-arrow, .carousel-dot, .review-arrow, .review-dot");
     targets.forEach(el => {
       el.addEventListener("pointermove", e => {
         const r = el.getBoundingClientRect();
