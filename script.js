@@ -1,155 +1,132 @@
 // ============================================================
-// EDIT GUIDE — JAVASCRIPT
-// इस file में animations, single-page interactions और portfolio
-// carousel का behavior है। सामान्य text/content बदलने के लिए
-// HTML files edit करें।
+// VINOD SINGH — PORTFOLIO INTERACTIONS
+// Clean carousel, reveal, counter and review logic.
 // ============================================================
-
-// VINOD SINGH — navigation + portfolio carousel interactions
 
 document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
-  // Preloader: keep it short and premium.
+  /* ----------------------------------------------------------
+     Preloader
+     ---------------------------------------------------------- */
   const loader = document.querySelector(".preloader");
   if (loader) {
     document.body.classList.add("locked");
-    setTimeout(() => {
+    window.setTimeout(() => {
       loader.classList.add("done");
       document.body.classList.remove("locked");
-    }, 1050);
+    }, 900);
   }
 
-  // Mobile menu.
-  const toggle = document.querySelector(".menu-toggle");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  if (toggle && mobileMenu) {
-    toggle.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
-    });
-    mobileMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-      });
-    });
-  }
-
-  // Reveal on scroll.
+  /* ----------------------------------------------------------
+     Reveal on scroll
+     ---------------------------------------------------------- */
   const revealItems = document.querySelectorAll(".reveal");
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
         entry.target.classList.add("visible");
         obs.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.12});
-  revealItems.forEach(item => observer.observe(item));
+      });
+    }, {threshold:0.10, rootMargin:"0px 0px -4% 0px"});
+    revealItems.forEach(item => observer.observe(item));
+  } else {
+    revealItems.forEach(item => item.classList.add("visible"));
+  }
 
-  // =====================================================
-  // PORTFOLIO CAROUSELS
-  // हर carousel independently चलता है।
-  // data-interval="2000" = 2 सेकंड में अगली slide।
-  // =====================================================
+  /* ----------------------------------------------------------
+     Portfolio carousels
+     - Independent per card
+     - Manual video
+     - Static work auto-rotates using data-interval
+     - Long carousels (>10) use a compact counter instead of dots
+     ---------------------------------------------------------- */
   document.querySelectorAll("[data-carousel]").forEach(carousel => {
     const track = carousel.querySelector(".carousel-track");
     const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
     const prev = carousel.querySelector(".carousel-arrow.prev");
     const next = carousel.querySelector(".carousel-arrow.next");
     const dotsWrap = carousel.querySelector(".carousel-dots");
-    const intervalMs = Number(carousel.dataset.interval) || 2000;
+    const card = carousel.closest(".showcase-card");
+    const intervalMs = Math.max(2500, Number(carousel.dataset.interval) || 4200);
     const autoPlay = carousel.dataset.auto !== "false";
 
-    if (!track || slides.length === 0) return;
+    if (!track || !slides.length) return;
 
-    const soundToggle = carousel.querySelector(".video-sound-toggle");
-    let soundOn = false;
     let index = 0;
     let timer = null;
     let paused = false;
+    let visible = true;
     let startX = 0;
+    let soundOn = false;
 
-    const updateSoundUI = () => {
-      if (!soundToggle) return;
-      soundToggle.textContent = soundOn ? "🔊" : "🔇";
-      soundToggle.setAttribute("aria-label", soundOn ? "Turn sound off" : "Turn sound on");
-      soundToggle.setAttribute("aria-pressed", String(soundOn));
+    let counter = carousel.querySelector(".carousel-counter");
+    if (!counter) {
+      counter = document.createElement("div");
+      counter.className = "carousel-counter";
+      counter.setAttribute("aria-live", "polite");
+      carousel.appendChild(counter);
+    }
+
+    const longCarousel = slides.length > 10;
+    if (longCarousel) dotsWrap?.setAttribute("hidden", "true");
+
+    if (slides.length <= 1) {
+      prev?.setAttribute("hidden", "true");
+      next?.setAttribute("hidden", "true");
+      dotsWrap?.setAttribute("hidden", "true");
+      counter.style.display = "none";
+    } else if (longCarousel) {
+      counter.style.display = "block";
+    }
+
+    const updateCounter = () => {
+      if (!counter || slides.length <= 10) return;
+      counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    };
+
+    const updateSoundUI = toggle => {
+      if (!toggle) return;
+      toggle.textContent = soundOn ? "🔊" : "🔇";
+      toggle.setAttribute("aria-label", soundOn ? "Turn sound off" : "Turn sound on");
+      toggle.setAttribute("aria-pressed", String(soundOn));
     };
 
     const playVideo = video => {
       if (!video) return;
       video.muted = !soundOn;
-
-      const attemptPlay = () => {
-        video.muted = !soundOn;
-        const promise = video.play();
-        if (promise && typeof promise.catch === "function") promise.catch(() => {});
-      };
-
-      if (video.readyState < 2) {
-        video.load();
-        video.addEventListener("loadeddata", attemptPlay, {once:true});
-        video.addEventListener("canplay", attemptPlay, {once:true});
-      } else {
-        attemptPlay();
-      }
+      const promise = video.play();
+      if (promise?.catch) promise.catch(() => {});
     };
 
     const updateVideos = () => {
       slides.forEach((slide, i) => {
         const video = slide.querySelector("video");
         if (!video) return;
-        if (i === index) {
+        if (i === index && visible) {
           playVideo(video);
         } else {
           video.pause();
-          try { video.currentTime = 0; } catch (e) {}
         }
       });
     };
-
-    soundToggle?.addEventListener("click", async () => {
-      soundOn = !soundOn;
-      const activeVideo = slides[index]?.querySelector("video");
-      if (activeVideo) {
-        activeVideo.muted = !soundOn;
-        try { await activeVideo.play(); } catch (e) {}
-      }
-      updateSoundUI();
-    });
-
-    if (slides.length <= 1) {
-      prev?.setAttribute("hidden", "true");
-      next?.setAttribute("hidden", "true");
-    }
-
-    slides.forEach((_, i) => {
-      const dot = document.createElement("button");
-      dot.className = "carousel-dot" + (i === 0 ? " active" : "");
-      dot.type = "button";
-      dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
-      dot.addEventListener("click", () => { index = i; render(); restart(); });
-      dotsWrap?.appendChild(dot);
-    });
 
     const render = () => {
       track.style.transform = `translateX(-${index * 100}%)`;
       dotsWrap?.querySelectorAll(".carousel-dot").forEach((dot, i) => {
         dot.classList.toggle("active", i === index);
       });
+      updateCounter();
       updateVideos();
 
       const activeSlide = slides[index];
       const title = activeSlide?.dataset.title;
       const description = activeSlide?.dataset.description;
       const client = activeSlide?.dataset.client;
-      const titleBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-title");
-      const descriptionBox = carousel.closest(".showcase-card")?.querySelector(".project-info .project-description");
+      const titleBox = card?.querySelector(".project-title");
+      const descriptionBox = card?.querySelector(".project-description");
       if (titleBox && title) titleBox.textContent = title;
       if (descriptionBox) descriptionBox.textContent = client || description || "";
     };
@@ -159,24 +136,62 @@ document.addEventListener("DOMContentLoaded", () => {
       render();
     };
 
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+
+    const start = () => {
+      stop();
+      if (!autoPlay || slides.length <= 1) return;
+      timer = window.setInterval(() => {
+        if (!paused && visible) step(1);
+      }, intervalMs);
+    };
+
+    const restart = () => {
+      start();
+    };
+
+    slides.forEach((_, i) => {
+      if (!dotsWrap || longCarousel) return;
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+      dot.addEventListener("click", () => {
+        index = i;
+        render();
+        restart();
+      });
+      dotsWrap.appendChild(dot);
+    });
+
     prev?.addEventListener("click", () => { step(-1); restart(); });
     next?.addEventListener("click", () => { step(1); restart(); });
 
-    const start = () => {
-      clearInterval(timer);
-      if (!autoPlay) return;
-      timer = setInterval(() => { if (!paused) step(1); }, intervalMs);
-    };
-    const restart = () => { clearInterval(timer); if (autoPlay) start(); };
+    const soundToggle = carousel.querySelector(".video-sound-toggle");
+    soundToggle?.addEventListener("click", async () => {
+      soundOn = !soundOn;
+      const activeVideo = slides[index]?.querySelector("video");
+      if (activeVideo) {
+        activeVideo.muted = !soundOn;
+        try { await activeVideo.play(); } catch (e) {}
+      }
+      updateSoundUI(soundToggle);
+    });
+    updateSoundUI(soundToggle);
 
     carousel.addEventListener("mouseenter", () => paused = true);
     carousel.addEventListener("mouseleave", () => paused = false);
     carousel.addEventListener("focusin", () => paused = true);
     carousel.addEventListener("focusout", () => paused = false);
+
     carousel.addEventListener("touchstart", e => {
-      paused = true;
       startX = e.changedTouches[0].clientX;
+      paused = true;
     }, {passive:true});
+
     carousel.addEventListener("touchend", e => {
       const delta = e.changedTouches[0].clientX - startX;
       if (Math.abs(delta) > 35) step(delta < 0 ? 1 : -1);
@@ -184,73 +199,78 @@ document.addEventListener("DOMContentLoaded", () => {
       restart();
     }, {passive:true});
 
+    /* Stop video playback/timers when the carousel is off-screen. */
+    if ("IntersectionObserver" in window) {
+      const viewObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          visible = entry.isIntersecting;
+          if (visible) {
+            updateVideos();
+            start();
+          } else {
+            stop();
+            updateVideos();
+          }
+        });
+      }, {threshold:0.05});
+      viewObserver.observe(carousel);
+    }
+
     document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) updateVideos();
+      if (document.hidden) {
+        stop();
+      } else {
+        updateVideos();
+        start();
+      }
     });
 
-    updateSoundUI();
     render();
     start();
   });
 
-
-  // =====================================================
-  // RESULTS COUNT ANIMATION
-  // HTML में data-target बदलने से final number बदल जाएगा।
-  // =====================================================
-  // जब Results section viewport में आता है, number 0 से target तक smoothly count होता है।
+  /* ----------------------------------------------------------
+     Results counters
+     ---------------------------------------------------------- */
   const counters = document.querySelectorAll(".counter[data-target]");
   if (counters.length) {
-    const countObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+    const animateCounter = counter => {
+      const target = Number(counter.dataset.target) || 0;
+      const duration = 1200;
+      const startTime = performance.now();
+      const tick = now => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.firstChild.nodeValue = Math.floor(target * eased).toLocaleString("en-IN");
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
 
-        const counter = entry.target;
-        const target = Number(counter.dataset.target) || 0;
-        const duration = 1500;
-        const start = performance.now();
-
-        const tick = now => {
-          const progress = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          counter.firstChild.nodeValue = Math.floor(target * eased).toLocaleString("en-IN");
-          if (progress < 1) requestAnimationFrame(tick);
-        };
-
-        requestAnimationFrame(tick);
-        obs.unobserve(counter);
-      });
-    }, {threshold: .6});
-
-    counters.forEach(counter => countObserver.observe(counter));
+    if ("IntersectionObserver" in window) {
+      const countObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        });
+      }, {threshold:0.55});
+      counters.forEach(counter => countObserver.observe(counter));
+    } else {
+      counters.forEach(animateCounter);
+    }
   }
-});
 
-// Element-local glow: light follows the element under the pointer, not the cursor globally.
-(() => {
-  if (!window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-  const targets = document.querySelectorAll(".btn, .service-card, .showcase-card, .stat, .text-link, .footer-nav a, .social-link, .carousel-arrow, .carousel-dot, .video-sound-toggle");
-  targets.forEach(el => {
-    el.addEventListener("pointermove", e => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--hover-x", `${e.clientX - r.left}px`);
-      el.style.setProperty("--hover-y", `${e.clientY - r.top}px`);
-    }, {passive:true});
-  });
-})();
-
-// ============================================================
-// REVIEWS SLIDER
-// एक समय में एक ही review card दिखता है। Auto-slide + arrows + dots + swipe।
-// ============================================================
-document.addEventListener("DOMContentLoaded", () => {
+  /* ----------------------------------------------------------
+     Reviews slider
+     ---------------------------------------------------------- */
   document.querySelectorAll("[data-review-carousel]").forEach(carousel => {
     const track = carousel.querySelector(".reviews-track");
     const slides = Array.from(carousel.querySelectorAll(".review-slide"));
     const prev = carousel.querySelector(".review-arrow.prev");
     const next = carousel.querySelector(".review-arrow.next");
     const dotsWrap = carousel.querySelector(".review-dots");
-    const intervalMs = Number(carousel.dataset.interval) || 4200;
+    const intervalMs = Math.max(3000, Number(carousel.dataset.interval) || 4200);
     if (!track || !slides.length) return;
 
     let index = 0;
@@ -259,12 +279,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let startX = 0;
 
     slides.forEach((_, i) => {
+      if (!dotsWrap) return;
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = "review-dot" + (i === 0 ? " active" : "");
       dot.setAttribute("aria-label", `Go to review ${i + 1}`);
       dot.addEventListener("click", () => { index = i; render(); restart(); });
-      dotsWrap?.appendChild(dot);
+      dotsWrap.appendChild(dot);
     });
 
     const render = () => {
@@ -278,19 +299,17 @@ document.addEventListener("DOMContentLoaded", () => {
       index = (index + direction + slides.length) % slides.length;
       render();
     };
-
+    const stop = () => { if (timer) clearInterval(timer); timer = null; };
     const start = () => {
-      clearInterval(timer);
-      timer = setInterval(() => {
-        if (!paused) step(1);
-      }, intervalMs);
+      stop();
+      timer = setInterval(() => { if (!paused) step(1); }, intervalMs);
     };
-    const restart = () => { clearInterval(timer); start(); };
+    const restart = () => start();
 
     prev?.addEventListener("click", () => { step(-1); restart(); });
     next?.addEventListener("click", () => { step(1); restart(); });
-    carousel.addEventListener("mouseenter", () => { paused = true; });
-    carousel.addEventListener("mouseleave", () => { paused = false; });
+    carousel.addEventListener("mouseenter", () => paused = true);
+    carousel.addEventListener("mouseleave", () => paused = false);
     carousel.addEventListener("touchstart", e => { startX = e.changedTouches[0].clientX; paused = true; }, {passive:true});
     carousel.addEventListener("touchend", e => {
       const delta = e.changedTouches[0].clientX - startX;
@@ -302,4 +321,18 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
     start();
   });
+
+  /* ----------------------------------------------------------
+     Local element glow — desktop only
+     ---------------------------------------------------------- */
+  if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    const targets = document.querySelectorAll(".btn, .service-card, .showcase-card, .stat, .text-link, .contact-social, .carousel-arrow, .carousel-dot, .review-arrow, .review-dot");
+    targets.forEach(el => {
+      el.addEventListener("pointermove", e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--hover-x", `${e.clientX - r.left}px`);
+        el.style.setProperty("--hover-y", `${e.clientY - r.top}px`);
+      }, {passive:true});
+    });
+  }
 });
